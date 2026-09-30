@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 def create_og_image():
     W, H = 1200, 630
     
-    # 1. Base dark obsidian canvas
+    # Base dark obsidian canvas
     img = Image.new("RGB", (W, H), "#040714")
     
     # Ambient glows
@@ -12,27 +12,26 @@ def create_og_image():
     glow_draw = ImageDraw.Draw(glow)
     
     # Cyan glow (top left)
-    glow_draw.ellipse((-100, -100, 450, 450), fill=(6, 182, 212, 75))
+    glow_draw.ellipse((-100, -100, 480, 480), fill=(6, 182, 212, 80))
     # Indigo glow (bottom center/left)
-    glow_draw.ellipse((200, 300, 750, 800), fill=(99, 102, 241, 65))
-    # Purple/Violet glow (behind portrait)
-    glow_draw.ellipse((700, 80, 1250, 600), fill=(168, 85, 247, 55))
+    glow_draw.ellipse((220, 280, 780, 800), fill=(99, 102, 241, 70))
+    # Purple glow (behind photo)
+    glow_draw.ellipse((720, 60, 1280, 620), fill=(168, 85, 247, 65))
     
-    glow = glow.filter(ImageFilter.GaussianBlur(90))
+    glow = glow.filter(ImageFilter.GaussianBlur(85))
     img.paste(glow, (0, 0), glow)
 
     draw = ImageDraw.Draw(img)
 
-    # Very subtle, elegant background grid
+    # Ultra-subtle grid
     for x in range(0, W, 48):
-        draw.line([(x, 0), (x, H)], fill=(255, 255, 255, 4), width=1)
+        draw.line([(x, 0), (x, H)], fill=(255, 255, 255, 5), width=1)
     for y in range(0, H, 48):
-        draw.line([(0, y), (W, y)], fill=(255, 255, 255, 4), width=1)
+        draw.line([(0, y), (W, y)], fill=(255, 255, 255, 5), width=1)
 
     # Sleek Outer border
-    draw.rounded_rectangle([(20, 20), (W - 20, H - 20)], radius=24, outline=(99, 102, 241, 140), width=2)
-    # Inner subtle glow outline
-    draw.rounded_rectangle([(23, 23), (W - 23, H - 23)], radius=22, outline=(6, 182, 212, 60), width=1)
+    draw.rounded_rectangle([(18, 18), (W - 18, H - 18)], radius=24, outline=(99, 102, 241, 150), width=2)
+    draw.rounded_rectangle([(21, 21), (W - 21, H - 21)], radius=22, outline=(6, 182, 212, 70), width=1)
 
     # Fonts
     font_dir = "C:/Windows/Fonts"
@@ -46,23 +45,28 @@ def create_og_image():
     f_pill_sub = ImageFont.truetype(f"{font_dir}/segoeui.ttf", 13)
     f_meta = ImageFont.truetype(f"{font_dir}/segoeui.ttf", 14)
 
-    # 2. Right Side: Dipta Saha Portrait Photo
+    # 2. Right Side: Dipta Saha Portrait Photo (Enlarged & Focused on Face + Laptop)
     photo_path = "e:/my cv 2025/Portfolio-website-2026/dipta-saha.jpg"
     if os.path.exists(photo_path):
         portrait = Image.open(photo_path).convert("RGBA")
-        pw, ph = 420, 520
-        src_w, src_h = portrait.size
-        target_ratio = pw / ph
-        src_ratio = src_w / src_h
+        src_w, src_h = portrait.size  # 819 x 1024
 
-        if src_ratio > target_ratio:
-            new_w = int(src_h * target_ratio)
-            left = (src_w - new_w) // 2
-            portrait = portrait.crop((left, 0, left + new_w, src_h))
-        else:
-            new_h = int(src_w / target_ratio)
-            portrait = portrait.crop((0, 0, src_w, new_h))
+        # Crop to center Dipta's face (top: ~380) and laptop (bottom: ~980)
+        crop_top = 370
+        crop_bottom = 990
+        crop_h = crop_bottom - crop_top
+        pw, ph = 440, 520
+        target_ratio = pw / ph  # 440 / 520 = 0.846
 
+        # Determine width from target_ratio
+        crop_w = int(crop_h * target_ratio)
+        if crop_w > src_w:
+            crop_w = src_w
+            crop_h = int(crop_w / target_ratio)
+            crop_top = max(0, 370 - (crop_h - (990 - 370)) // 2)
+
+        crop_left = (src_w - crop_w) // 2
+        portrait = portrait.crop((crop_left, crop_top, crop_left + crop_w, crop_top + crop_h))
         portrait = portrait.resize((pw, ph), Image.Resampling.LANCZOS)
 
         # Rounded mask
@@ -70,20 +74,20 @@ def create_og_image():
         mask_draw = ImageDraw.Draw(mask)
         mask_draw.rounded_rectangle([(0, 0), (pw, ph)], radius=20, fill=255)
 
-        px, py = 725, 55
+        px, py = 715, 55
 
         # Glowing Neon Double Border around portrait
         photo_glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         pg_draw = ImageDraw.Draw(photo_glow)
-        pg_draw.rounded_rectangle([(px - 3, py - 3), (px + pw + 3, py + ph + 3)], radius=23, outline=(6, 182, 212, 220), width=3)
-        pg_draw.rounded_rectangle([(px - 6, py - 6), (px + pw + 6, py + ph + 6)], radius=26, outline=(99, 102, 241, 130), width=2)
+        pg_draw.rounded_rectangle([(px - 3, py - 3), (px + pw + 3, py + ph + 3)], radius=23, outline=(6, 182, 212, 230), width=3)
+        pg_draw.rounded_rectangle([(px - 6, py - 6), (px + pw + 6, py + ph + 6)], radius=26, outline=(99, 102, 241, 140), width=2)
         img.paste(photo_glow, (0, 0), photo_glow)
 
         img.paste(portrait, (px, py), mask)
 
         # Floating Status Badge at bottom of portrait
         badge_w, badge_h = 230, 36
-        bx, by = px + (pw - badge_w) // 2, py + ph - 48
+        bx, by = px + (pw - badge_w) // 2, py + ph - 46
         badge_bg = Image.new("RGBA", (badge_w, badge_h), (6, 10, 24, 235))
         b_draw = ImageDraw.Draw(badge_bg)
         b_draw.rounded_rectangle([(0, 0), (badge_w, badge_h)], radius=18, outline=(16, 185, 129, 230), width=1)
@@ -92,7 +96,7 @@ def create_og_image():
         img.paste(badge_bg, (bx, by), badge_bg)
 
     # 3. Left Side Content
-    lx = 65
+    lx = 60
 
     # Top Brand Header Pill
     draw.rounded_rectangle([(lx, 55), (lx + 38, 93)], radius=10, fill=(15, 23, 42), outline=(6, 182, 212), width=1)
@@ -116,7 +120,7 @@ def create_og_image():
     draw.text((lx, 288), "Engineering production mobile applications, scalable cloud backends,", fill="#94A3B8", font=f_desc)
     draw.text((lx, 312), "and real-time computer vision AI systems deployed at scale.", fill="#94A3B8", font=f_desc)
 
-    # 3 Pillar Feature Cards (Left side)
+    # 3 Pillar Feature Cards
     cards = [
         ("Flutter Mobile Architecture", "App Store & Google Play • Firebase • Offline Sync", (56, 189, 248)),
         ("Full-Stack Web Platforms", "Next.js 14 • Node.js • ASP.NET • High-Traffic APIs", (129, 140, 248)),
@@ -125,15 +129,14 @@ def create_og_image():
 
     cy = 352
     for title, subtitle, color in cards:
-        draw.rounded_rectangle([(lx, cy), (lx + 590, cy + 48)], radius=10, fill=(13, 19, 38, 220), outline=color, width=1)
-        # Left color indicator dot
+        draw.rounded_rectangle([(lx, cy), (lx + 580, cy + 48)], radius=10, fill=(13, 19, 38, 220), outline=color, width=1)
         draw.ellipse([(lx + 14, cy + 20), (lx + 22, cy + 28)], fill=color)
         draw.text((lx + 32, cy + 7), title, fill="#FFFFFF", font=f_pill_title)
         draw.text((lx + 32, cy + 27), subtitle, fill="#94A3B8", font=f_pill_sub)
         cy += 56
 
     # Bottom Contact Bar
-    draw.line([(lx, 536), (lx + 590, 536)], fill=(255, 255, 255, 30), width=1)
+    draw.line([(lx, 536), (lx + 580, 536)], fill=(255, 255, 255, 30), width=1)
     draw.text((lx, 548), "Dhaka, Bangladesh   •   github.com/didipta   •   sdipta707@gmail.com", fill="#64748B", font=f_meta)
 
     # Export
@@ -144,7 +147,7 @@ def create_og_image():
     img.save(out_png, "PNG", optimize=True)
     img.save(out_jpg, "JPEG", quality=95, optimize=True)
     img.save(out_preview, "JPEG", quality=95, optimize=True)
-    print("Regenerated:", out_png, out_jpg)
+    print("Regenerated successfully:", out_png, out_jpg)
 
 if __name__ == "__main__":
     create_og_image()
