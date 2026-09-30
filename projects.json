@@ -1,0 +1,305 @@
+[
+  {
+    "id": "oiikko-community-app",
+    "title": "Oiikko Community App",
+    "category": "mobile",
+    "kind": "Mobile · Live on both stores",
+    "featured": true,
+    "status": "Live",
+    "shortDescription": "A community app built with Flutter and Firebase, published on Google Play and the App Store.",
+    "description": "A community app built with Flutter and Firebase, published on Google Play and the App Store.",
+    "technologies": [
+      "Flutter",
+      "Firebase"
+    ],
+    "links": {
+      "googlePlay": "https://play.google.com/store/apps/details?id=com.forenizence.o1kko",
+      "appStore": "https://apps.apple.com/ae/app/oiikko/id6745569471",
+      "github": null,
+      "live": "https://play.google.com/store/apps/details?id=com.forenizence.o1kko"
+    }
+  },
+  {
+    "id": "multi-vendor-ecommerce",
+    "title": "Multi-vendor E-commerce",
+    "category": "web",
+    "kind": "Web",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Full-stack marketplace with vendor and customer flows.",
+    "description": "Full-stack marketplace with vendor and customer flows.",
+    "technologies": [
+      "Node.js",
+      "NestJS",
+      "Redux Toolkit",
+      "Tailwind CSS"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta/ecommerce-d",
+      "live": null
+    }
+  },
+  {
+    "id": "shopping-corner",
+    "title": "Shopping Corner",
+    "category": "web",
+    "kind": "Web · Live",
+    "featured": false,
+    "status": "Live",
+    "shortDescription": "An e-commerce store serving customers in Bangladesh.",
+    "description": "An e-commerce store serving customers in Bangladesh.",
+    "technologies": [
+      "NestJS",
+      "Redux",
+      "Tailwind CSS"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": null,
+      "live": "https://shoppingcorner.com.bd/"
+    }
+  },
+  {
+    "id": "event-management-system",
+    "title": "Event Management System",
+    "category": "web",
+    "kind": "Web",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Plan and manage events from a single dashboard.",
+    "description": "Plan and manage events from a single dashboard.",
+    "technologies": [
+      "Next.js",
+      "Tailwind CSS"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta/Project-M-2023-2024/tree/master/eventic-frontend",
+      "live": null
+    }
+  },
+  {
+    "id": "social-media-website",
+    "title": "Social Media Website",
+    "category": "web",
+    "kind": "Web · Live",
+    "featured": false,
+    "status": "Live",
+    "shortDescription": "A social platform for sharing posts and connecting.",
+    "description": "A social platform for sharing posts and connecting.",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Firebase"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": null,
+      "live": "https://thanku-9180f.web.app/"
+    }
+  },
+  {
+    "id": "flutter-social-media-app",
+    "title": "Flutter Social Media App",
+    "category": "mobile",
+    "kind": "Mobile",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "A social networking app for Android and iOS.",
+    "description": "A social networking app for Android and iOS.",
+    "technologies": [
+      "Flutter",
+      "Firebase"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta/social_media_app",
+      "live": null
+    }
+  },
+  {
+    "id": "ecommerce-mobile-app",
+    "title": "E-commerce Mobile App",
+    "category": "mobile",
+    "kind": "Mobile",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "A shopping app with catalog, cart and checkout.",
+    "description": "A shopping app with catalog, cart and checkout.",
+    "technologies": [
+      "Flutter",
+      "Firebase"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta/e_commerce_app",
+      "live": null
+    }
+  },
+  {
+    "id": "bangladeshi-taka-banknote-detection",
+    "title": "Bangladeshi Taka Banknote Detection",
+    "category": "ai",
+    "kind": "Python · Computer vision · Deployed",
+    "featured": true,
+    "status": "Deployed",
+    "shortDescription": "YOLOv11 model training in Colab, then a FastAPI REST API packaged with Docker and custom web UI.",
+    "description": "A two-phase project: YOLOv11 model training in Colab, then a FastAPI REST API packaged with Docker. It includes a drag-and-drop web UI styled after the colors of each Taka denomination.",
+    "technologies": [
+      "Python",
+      "YOLOv11",
+      "FastAPI",
+      "Docker"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": null
+    }
+  },
+  {
+    "id": "people-flow-detection",
+    "title": "People Flow Detection",
+    "category": "ai",
+    "kind": "Python · Computer vision",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Counts people crossing a line in each direction and draws a movement heatmap.",
+    "description": "Counts people crossing a line in each direction and draws a movement heatmap.",
+    "technologies": [
+      "YOLOv8",
+      "ByteTrack",
+      "OpenCV"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": null
+    }
+  },
+  {
+    "id": "virtual-try-on",
+    "title": "Virtual Try-On",
+    "category": "ai",
+    "kind": "Python · Computer vision",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Segments the body and clothing, then generates the try-on image, with a Gradio interface.",
+    "description": "Segments the body and clothing, then generates the try-on image, with a Gradio interface.",
+    "technologies": [
+      "MediaPipe",
+      "SegFormer",
+      "Gemini API",
+      "Gradio"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": null
+    }
+  },
+  {
+    "id": "question-answering-with-bert",
+    "title": "Question Answering with BERT",
+    "category": "ai",
+    "kind": "Python · NLP",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Fine-tuned a BERT model for extractive question answering on SQuAD v1.1.",
+    "description": "Fine-tuned a BERT model for extractive question answering on SQuAD v1.1.",
+    "technologies": [
+      "Hugging Face",
+      "Transformers",
+      "BERT",
+      "SQuAD v1.1"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": null
+    }
+  },
+  {
+    "id": "sentiment-analysis-on-imdb",
+    "title": "Sentiment Analysis on IMDB",
+    "category": "ai",
+    "kind": "Python · NLP",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Compared TF-IDF, Word2Vec and a fine-tuned BERT model on movie review sentiment.",
+    "description": "Compared TF-IDF, Word2Vec and a fine-tuned BERT model on movie review sentiment.",
+    "technologies": [
+      "scikit-learn",
+      "Word2Vec",
+      "BERT",
+      "Python"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": null
+    }
+  },
+  {
+    "id": "leo-multi-agent-study-tutor",
+    "title": "Leo, a multi-agent study tutor",
+    "category": "ai",
+    "kind": "Python · AI agents",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Coordinator, explainer, quiz and evaluator agents work together to teach a topic and re-teach weak answers.",
+    "description": "Coordinator, explainer, quiz and evaluator agents work together to teach a topic and re-teach weak answers.",
+    "technologies": [
+      "CrewAI",
+      "AutoGen",
+      "Gemini API",
+      "Python"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": null
+    }
+  },
+  {
+    "id": "field-force-app",
+    "title": "Field Force App",
+    "category": "mobile",
+    "kind": "Mobile",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "An enterprise field workforce and sales management mobile app built with Flutter, BLoC, Google Maps, and Firebase.",
+    "description": "An enterprise-grade field workforce management system developed for Samsung sales teams using Flutter and Clean Architecture. Key capabilities include real-time employee attendance tracking with camera verification and GPS geofencing, leave request & approval workflows, field stock & inventory management, interactive performance charts, and remote over-the-air app updates.",
+    "technologies": [
+      "Flutter",
+      "Dart",
+      "BLoC",
+      "Clean Architecture",
+      "Firebase (Crashlytics & Remote Config)",
+      "Dio & REST API",
+      "Google Maps & Geolocation",
+      "Syncfusion Charts",
+      "GetIt (Service Locator)",
+      "SharedPreferences"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/Softograph/samsung-sales-force-app",
+      "live": null
+    }
+  }
+]

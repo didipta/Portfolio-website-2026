@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Squircle with Glowing Neon Gradient Border -->
+  <rect x="2.5" y="2.5" width="59" height="59" rx="15" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="2.5"/>
+
+  <!-- Online Active Node Dot (Emerald) -->
+  <circle cx="51" cy="13" r="5" fill="#10b981" opacity="0.3"/>
+  <circle cx="51" cy="13" r="3.2" fill="#10b981"/>
+
+  <!-- Stylized Monogram DS -->
+  <text x="32" y="34.5" text-anchor="middle" dominant-baseline="central" fill="url(#textGrad)" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="28" letter-spacing="-1.2">DS</text>
+</svg>

@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dipta Saha — Software Engineer · Flutter, Full-Stack &amp; AI Systems</title>
+  <meta name="description" content="Portfolio of Dipta Saha: Software Engineer with 4+ years of experience engineering scalable web platforms, Flutter mobile apps, and enterprise computer vision systems.">
+  <meta name="keywords" content="Dipta Saha, Software Engineer, Full-Stack Developer, Flutter Engineer, AI Engineer, YOLO, Python, Django, Next.js, Dhaka, Portfolio">
+  <meta name="author" content="Dipta Saha">
+  <meta name="theme-color" content="#030712">
+
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='b' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b1120'/%3E%3Cstop offset='100%25' stop-color='%23030712'/%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2306b6d4'/%3E%3Cstop offset='50%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3ClinearGradient id='t' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2338bdf8'/%3E%3Cstop offset='50%25' stop-color='%23818cf8'/%3E%3Cstop offset='100%25' stop-color='%23c084fc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2.5' y='2.5' width='59' height='59' rx='15' fill='url(%23b)' stroke='url(%23g)' stroke-width='2.5'/%3E%3Ccircle cx='51' cy='13' r='3.2' fill='%2310b981'/%3E%3Ctext x='32' y='34.5' text-anchor='middle' dominant-baseline='central' fill='url(%23t)' font-family='system-ui, sans-serif' font-weight='900' font-size='28' letter-spacing='-1.2'%3EDS%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg">
+
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Dipta Saha — Software Engineer · Flutter, Full-Stack &amp; AI Systems">
+  <meta property="og:description" content="Portfolio of Dipta Saha: 4+ years of experience engineering high-performance mobile apps (Flutter), robust web backends (Python/Django/Node), and AI computer vision pipelines.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dipta Saha — Software Engineer · Flutter, Full-Stack &amp; AI Systems">
+  <meta name="twitter:description" content="Portfolio of Dipta Saha: 4+ years of experience engineering high-performance mobile apps (Flutter), robust web backends (Python/Django/Node), and AI computer vision pipelines.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Modular Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Icons via Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js for Interactive 3D Mode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Background 3D Galaxy Canvas -->
+  <div id="canvas-container">
+    <canvas id="bg-canvas"></canvas>
+  </div>
+
+  <!-- Ambient Glow Blobs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+  <div class="ambient-glow glow-4"></div>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-wrap">
+      <a href="#hero" class="brand">
+        <div class="brand-avatar">DS</div>
+        <div>
+          <span class="brand-name">Dipta Saha</span>
+          <span class="brand-badge">4+ YOE</span>
+        </div>
+      </a>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#problem-solving">Engineering</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- 3D Interactive Mode Switcher -->
+        <button id="toggle-3d-btn" class="mode-3d-btn active" title="Toggle Interactive 3D Cyber Mode">
+          <i data-lucide="box"></i>
+          <span>3D Mode: ON</span>
+        </button>
+        <a href="https://drive.google.com/uc?export=download&id=1D3P9ufExaGzzhVr45oYDzNtYdsowi7IF" target="_blank" class="cta-btn cv-btn-desktop">
+          <i data-lucide="download" style="width:14px;height:14px;"></i>
+          <span>CV</span>
+        </a>
+        <!-- Mobile Menu Hamburger Button -->
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer & Backdrop Overlay -->
+  <div id="mobile-overlay" class="mobile-overlay"></div>
+  <aside id="mobile-drawer" class="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <div class="brand">
+        <div class="brand-avatar">DS</div>
+        <div>
+          <span class="brand-name">Dipta Saha</span>
+          <span class="brand-badge">4+ YOE</span>
+        </div>
+      </div>
+      <button id="close-drawer-btn" class="mobile-drawer-close" aria-label="Close menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="#about" class="mobile-nav-link"><i data-lucide="user" style="width:18px;height:18px;"></i> About</a>
+      <a href="#experience" class="mobile-nav-link"><i data-lucide="briefcase" style="width:18px;height:18px;"></i> Experience</a>
+      <a href="#projects" class="mobile-nav-link"><i data-lucide="layers" style="width:18px;height:18px;"></i> Projects</a>
+      <a href="#skills" class="mobile-nav-link"><i data-lucide="cpu" style="width:18px;height:18px;"></i> Skills</a>
+      <a href="#problem-solving" class="mobile-nav-link"><i data-lucide="code" style="width:18px;height:18px;"></i> Engineering</a>
+      <a href="#contact" class="mobile-nav-link"><i data-lucide="send" style="width:18px;height:18px;"></i> Contact</a>
+    </div>
+    <div class="mobile-drawer-actions">
+      <button id="mobile-toggle-3d-btn" class="mode-3d-btn" style="width:100%;justify-content:center;padding:12px 16px;">
+        <i data-lucide="box"></i>
+        <span>3D Mode: ON</span>
+      </button>
+      <a href="https://drive.google.com/uc?export=download&id=1D3P9ufExaGzzhVr45oYDzNtYdsowi7IF" target="_blank" class="cta-btn" style="width:100%;justify-content:center;padding:12px 16px;text-decoration:none;">
+        <i data-lucide="download" style="width:16px;height:16px;"></i>
+        <span>Download Full CV</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="badge-experience">
+            <span class="status-dot"></span>
+            <span>4+ Years Software Engineer · Available for Full-Time Roles & Contracts</span>
+          </div>
+
+          <h1>
+            Architecting <span class="gradient-text">Scalable Full-Stack, Flutter & AI</span> Systems
+          </h1>
+
+          <!-- 3 Interactive Tech Pillar Badges -->
+          <div class="hero-pillars-badges">
+            <button class="pillar-badge badge-nextjs active" data-mode="nextjs" title="Explore Next.js Full-Stack Architecture">
+              <i data-lucide="zap" style="width:14px;height:14px;color:var(--cyan);"></i>
+              <span>Next.js Full-Stack</span>
+            </button>
+            <button class="pillar-badge badge-ai" data-mode="ai" title="Explore Python & Applied AI Systems">
+              <i data-lucide="bot" style="width:14px;height:14px;color:#A855F7;"></i>
+              <span>Python & Applied AI</span>
+            </button>
+            <button class="pillar-badge badge-flutter" data-mode="flutter" title="Explore Flutter Cross-Platform Mobile">
+              <i data-lucide="smartphone" style="width:14px;height:14px;color:#38BDF8;"></i>
+              <span>Flutter Mobile</span>
+            </button>
+          </div>
+
+          <div class="hero-role">
+            <i data-lucide="terminal" style="width:18px;height:18px;"></i>
+            <span>Full-Stack Engineer &bull; AI Specialist &bull; Flutter Architect</span>
+          </div>
+
+          <p class="hero-bio">
+            Software Engineer with 4+ years of hands-on expertise engineering high-throughput web applications with Next.js & Node.js, deploying real-time neural vision pipelines with Python & YOLOv11, and publishing 60fps Flutter mobile applications active on both the Apple App Store and Google Play Store.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#projects" class="btn-primary-large">
+              <span>Explore 14+ Projects</span>
+              <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            </a>
+            <a href="https://github.com/didipta" target="_blank" class="btn-secondary">
+              <i data-lucide="github" style="width:16px;height:16px;"></i>
+              <span>GitHub Profile</span>
+            </a>
+            <button class="btn-secondary" onclick="copyEmail()">
+              <i data-lucide="mail" style="width:16px;height:16px;"></i>
+              <span>Copy Email</span>
+            </button>
+          </div>
+
+          <!-- Key Metrics -->
+          <div class="metrics-bar">
+            <div class="metric-card">
+              <div class="metric-number">4+</div>
+              <div class="metric-label">Years Experience</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-number">14+</div>
+              <div class="metric-label">Production Projects</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-number">2</div>
+              <div class="metric-label">Live App Stores</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-number">100+</div>
+              <div class="metric-label">LeetCode & Algo</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero 3D Card / Interactive Visualizer -->
+        <div class="hero-visual-card" id="hero-tilt-card">
+          <!-- Interactive 3-Pillar Switcher Tabs -->
+          <div class="hero-pillar-nav">
+            <button class="tech-mode-tab active" data-mode="nextjs">
+              <i data-lucide="globe" style="width:14px;height:14px;"></i>
+              <span>Next.js</span>
+            </button>
+            <button class="tech-mode-tab" data-mode="ai">
+              <i data-lucide="bot" style="width:14px;height:14px;"></i>
+              <span>Python &amp; AI</span>
+            </button>
+            <button class="tech-mode-tab" data-mode="flutter">
+              <i data-lucide="smartphone" style="width:14px;height:14px;"></i>
+              <span>Flutter</span>
+            </button>
+          </div>
+
+          <div class="visual-top-bar">
+            <div class="terminal-dots">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <div class="terminal-title" id="terminal-title-text">nextjs_edge_server.wasm</div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--cyan);">60 FPS WebGL</div>
+          </div>
+
+          <!-- Dedicated Canvas for 3D Geometry Core -->
+          <canvas id="hero-canvas-3d"></canvas>
+
+          <div style="margin-top:10px;text-align:center;">
+            <p style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);">
+              <i data-lucide="move" style="width:11px;height:11px;display:inline;vertical-align:middle;"></i> Drag to orbit 3D model &bull; Click tabs above to morph geometry
+            </p>
+          </div>
+
+          <!-- Interactive Live Console & Telemetry Stream -->
+          <div class="hero-live-console">
+            <div class="console-meta-row">
+              <span class="console-status-badge">
+                <span class="status-dot"></span>
+                <span id="console-status-text">App Router · Server Actions · 99.9% Cache Hit</span>
+              </span>
+              <span style="color:var(--text-dim);">LIVE TELEMETRY</span>
+            </div>
+            <div class="console-code-output" id="console-output-text">> Next.js 14 (App Router) initialized.
+> GET /api/v1/marketplace -> 200 OK (16ms latency)
+> Streaming Server Components with Turbopack.</div>
+            <div class="console-interactive-actions">
+              <button class="console-action-btn" id="console-action-trigger">
+                <i data-lucide="play" style="width:12px;height:12px;"></i>
+                <span>⚡ Simulate SSR Fetch</span>
+              </button>
+              <a href="#projects" class="console-jump-link" id="console-jump-projects" data-target-filter="web">
+                <span>View Stack Projects</span>
+                <i data-lucide="arrow-down-right" style="width:13px;height:13px;"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="floating-tech-tags">
+            <span class="tech-pill">Next.js 14</span>
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">TypeScript</span>
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">YOLOv11</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">Flutter</span>
+            <span class="tech-pill">Dart</span>
+            <span class="tech-pill">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Engineering Philosophy</span>
+        <h2 class="section-title">Bridging Scalable Architecture, Mobile Precision & Applied AI</h2>
+        <p class="section-subtitle">Driven by clean code paradigms, rigorous system design, and measurable business impact across 14+ deployed production products.</p>
+      </div>
+
+      <div class="two-column-grid">
+        <div class="info-card">
+          <h3 style="font-family:var(--font-display);font-size:24px;color:#fff;margin-bottom:16px;">
+            Full-Stack & Mobile Architecture
+          </h3>
+          <p style="color:var(--text-muted);line-height:1.7;margin-bottom:16px;">
+            Based in Dhaka, Bangladesh, I have architected and delivered software across diverse ecosystems: from high-throughput backend microservices and RESTful APIs using Node.js, NestJS, and ASP.NET, to performant frontend client apps built with Next.js, React, and Tailwind CSS.
+          </p>
+          <p style="color:var(--text-muted);line-height:1.7;">
+            In mobile, I engineer state-managed Flutter applications deployed worldwide to the Apple App Store and Google Play Store, managing authentication, offline data sync, Firebase cloud architecture, and real-time push pipelines.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3 style="font-family:var(--font-display);font-size:24px;color:#fff;margin-bottom:16px;">
+            Applied AI & Computer Vision
+          </h3>
+          <p style="color:var(--text-muted);line-height:1.7;margin-bottom:16px;">
+            I specialize in bridging the gap between machine learning models and production web services. Trained and fine-tuned custom YOLOv11 & YOLOv8 models for real-time banknote recognition and spatial people-flow analytics, packaged with FastAPI, Docker, and OpenCV.
+          </p>
+          <p style="color:var(--text-muted);line-height:1.7;">
+            Also experienced in NLP with Hugging Face BERT transformers (SQuAD extractive QA & sentiment classification) and building autonomous multi-agent systems with CrewAI, AutoGen, and Gemini API.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Timeline Section (4+ Years Track Record) -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Professional Journey</span>
+        <h2 class="section-title">Proven Engineering Leadership & System Impact</h2>
+        <p class="section-subtitle">A 4+ year trajectory of architecting mission-critical platforms, optimizing distributed microservices, and deploying real-world solutions.</p>
+      </div>
+
+      <div class="timeline-container">
+        <!-- Softograph -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Software Engineer</h3>
+                <a href="https://softograph.com/" target="_blank" class="timeline-company">
+                  Softograph <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+                </a>
+              </div>
+              <span class="timeline-period">Jan 2025 – Present</span>
+            </div>
+            <ul class="timeline-highlights">
+              <li>Architecting and maintaining scalable web and mobile software for global enterprise clients.</li>
+              <li>Designing high-performance RESTful APIs, third-party integrations, and microservices.</li>
+              <li>Implementing strict security best practices, token handling, and database indexing optimizations.</li>
+              <li>Collaborating with cross-functional product and design teams in fast-paced agile sprints.</li>
+              <li>Researching and integrating applied AI models into upcoming client solutions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Microdeft -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Software Engineer</h3>
+                <a href="https://microdeft.com/" target="_blank" class="timeline-company">
+                  Microdeft <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+                </a>
+              </div>
+              <span class="timeline-period">Jan 2023 – Sep 2024</span>
+            </div>
+            <ul class="timeline-highlights">
+              <li>Engineered high-scale multi-vendor e-commerce platforms featuring advanced dynamic SEO infrastructure.</li>
+              <li>Architected a comprehensive custom ERP system automating departmental workflows and inventory control.</li>
+              <li>Constructed real-time analytical monitoring dashboards across 5 key client commercial deployments.</li>
+              <li>Spearheaded end-to-end development of internal event management systems with Next.js and Node.js.</li>
+              <li>Formulated robust RESTful APIs in Node.js serving mobile and web clients with sub-100ms latency.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Earlier Milestones -->
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color:var(--primary);box-shadow:0 0 15px var(--primary);"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Full-Stack & Flutter Engineer (Commercial & Open Source)</h3>
+                <span style="color:var(--text-muted);font-size:14px;">Freelance & Academic Projects</span>
+              </div>
+              <span class="timeline-period">2022 – 2023</span>
+            </div>
+            <ul class="timeline-highlights">
+              <li>Published commercial Flutter mobile applications to both Apple App Store and Google Play Store.</li>
+              <li>Graduated with B.Sc. in Computer Science with Honors from AIUB (American International University-Bangladesh).</li>
+              <li>Solved over 100+ algorithmic and data structure problems on LeetCode and Codeforces.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section (Interactive 3D Tilt Cards & Filtering) -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Selected Work & Systems</span>
+        <h2 class="section-title">14 Production Deployments Engineered for Scale</h2>
+        <p class="section-subtitle">Explore real-world software across high-throughput web architectures, 4 published mobile applications, and deep neural vision systems.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs-wrapper" role="group" aria-label="Filter Projects">
+        <button class="tab-btn active" data-filter="all">
+          <i data-lucide="layers" style="width:15px;height:15px;"></i>
+          <span>All Projects</span>
+          <span class="tab-count">14</span>
+        </button>
+        <button class="tab-btn" data-filter="web">
+          <i data-lucide="globe" style="width:15px;height:15px;"></i>
+          <span>Web & ERP</span>
+          <span class="tab-count">4</span>
+        </button>
+        <button class="tab-btn" data-filter="mobile">
+          <i data-lucide="smartphone" style="width:15px;height:15px;"></i>
+          <span>Mobile Apps</span>
+          <span class="tab-count">4</span>
+        </button>
+        <button class="tab-btn" data-filter="ai">
+          <i data-lucide="cpu" style="width:15px;height:15px;"></i>
+          <span>Applied AI & Vision</span>
+          <span class="tab-count">6</span>
+        </button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid" id="projects-container">
+        
+        <!-- Project 1: Oiikko (Featured Mobile) -->
+        <article class="project-card featured" data-category="mobile">
+          <div>
+            <div class="card-top">
+              <div class="card-badges">
+                <span class="badge-featured"><i data-lucide="star" style="width:12px;height:12px;"></i> Featured Project</span>
+                <span class="badge-status">● Live on Both Stores</span>
+              </div>
+              <span class="card-category">Mobile Engineering</span>
+            </div>
+            <h3 class="project-title">Oiikko Community App</h3>
+            <p class="project-desc">
+              A comprehensive cross-platform community and networking platform built with Flutter and Firebase. Features real-time messaging, push notifications, community feeds, profile management, and smooth 60fps animations. Deployed and active on both Google Play and Apple App Store.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Dart</span>
+              <span class="tech-tag">Firebase Auth</span>
+              <span class="tech-tag">Cloud Firestore</span>
+              <span class="tech-tag">Push Notifications</span>
+              <span class="tech-tag">App Store</span>
+              <span class="tech-tag">Google Play</span>
+            </div>
+            <div class="card-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.forenizence.o1kko" target="_blank" class="project-link-btn primary">
+                <i data-lucide="play" style="width:14px;height:14px;"></i> Google Play
+              </a>
+              <a href="https://apps.apple.com/ae/app/oiikko/id6745569471" target="_blank" class="project-link-btn">
+                <i data-lucide="apple" style="width:14px;height:14px;"></i> App Store
+              </a>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:var(--radius-md);border:1px solid var(--border-subtle);padding:24px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:var(--font-mono);font-size:13px;color:var(--cyan);margin-bottom:12px;">
+              // Architecture Highlights
+            </div>
+            <ul style="list-style:none;font-size:14px;color:var(--text-muted);line-height:1.8;">
+              <li>✓ Clean BLoC / Provider state architecture</li>
+              <li>✓ Offline caching with encrypted local storage</li>
+              <li>✓ Over-the-air crash logging and analytics</li>
+              <li>✓ Compliant with Apple App Store & Google policies</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Project 2: Multi-vendor E-commerce -->
+        <article class="project-card" data-category="web">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Production Ready</span>
+              <span class="card-category">Web Platform</span>
+            </div>
+            <h3 class="project-title">Multi-vendor E-commerce</h3>
+            <p class="project-desc">
+              High-throughput full-stack marketplace system featuring independent vendor management, order processing, inventory analytics, and seamless customer checkout flows.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">NestJS</span>
+              <span class="tech-tag">Redux Toolkit</span>
+              <span class="tech-tag">Tailwind CSS</span>
+              <span class="tech-tag">JWT</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta/ecommerce-d" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View Repository
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3: Shopping Corner -->
+        <article class="project-card" data-category="web">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">● Live Commercial</span>
+              <span class="card-category">Web E-Commerce</span>
+            </div>
+            <h3 class="project-title">Shopping Corner</h3>
+            <p class="project-desc">
+              High-conversion e-commerce platform actively serving online shoppers across Bangladesh with dynamic product catalogs, optimized server-side rendering, and instant order tracking.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">NestJS</span>
+              <span class="tech-tag">Redux</span>
+              <span class="tech-tag">Tailwind CSS</span>
+              <span class="tech-tag">SSR</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://shoppingcorner.com.bd/" target="_blank" class="project-link-btn primary">
+              <i data-lucide="external-link" style="width:14px;height:14px;"></i> Visit Live Site
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 4: Event Management System -->
+        <article class="project-card" data-category="web">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Enterprise</span>
+              <span class="card-category">Web & Dashboard</span>
+            </div>
+            <h3 class="project-title">Event Management System</h3>
+            <p class="project-desc">
+              Comprehensive event planning and ticketing dashboard to orchestrate attendee registrations, speaker agendas, venue mapping, and live real-time metrics.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Tailwind CSS</span>
+              <span class="tech-tag">REST API</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta/Project-M-2023-2024/tree/master/eventic-frontend" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View Repository
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 5: Social Media Website -->
+        <article class="project-card" data-category="web">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">● Live Demo</span>
+              <span class="card-category">Social Web App</span>
+            </div>
+            <h3 class="project-title">Social Media Website</h3>
+            <p class="project-desc">
+              Modern social networking platform built with React, Tailwind, and Firebase. Features image uploads, user feeds, instant likes, comments, and real-time state synchronization.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Tailwind CSS</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Cloud Storage</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://thanku-9180f.web.app/" target="_blank" class="project-link-btn primary">
+              <i data-lucide="external-link" style="width:14px;height:14px;"></i> Visit Live Demo
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 6: Flutter Social Media App -->
+        <article class="project-card" data-category="mobile">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Cross-Platform</span>
+              <span class="card-category">Mobile App</span>
+            </div>
+            <h3 class="project-title">Flutter Social Media App</h3>
+            <p class="project-desc">
+              Fluid mobile social networking application for iOS and Android featuring responsive newsfeed layout, camera integration, direct messaging, and Firebase authentication.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Dart</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Material 3</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta/social_media_app" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View Repository
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 7: E-commerce Mobile App -->
+        <article class="project-card" data-category="mobile">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Cross-Platform</span>
+              <span class="card-category">Mobile App</span>
+            </div>
+            <h3 class="project-title">E-commerce Mobile App</h3>
+            <p class="project-desc">
+              Feature-complete mobile shopping application with product search, category filtering, persistent shopping cart, payment integration, and order summary.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Dart</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">State Management</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta/e_commerce_app" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View Repository
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 8: Field Force App -->
+        <article class="project-card" data-category="mobile">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Enterprise · Samsung</span>
+              <span class="card-category">Mobile App</span>
+            </div>
+            <h3 class="project-title">Field Force App</h3>
+            <p class="project-desc">
+              Enterprise-grade field workforce management system developed for Samsung sales teams using Flutter and Clean Architecture. Key capabilities include real-time employee attendance tracking with camera verification and GPS geofencing, leave workflows, field stock inventory, and performance metrics.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Dart</span>
+              <span class="tech-tag">BLoC</span>
+              <span class="tech-tag">Clean Architecture</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Google Maps</span>
+              <span class="tech-tag">Dio & REST API</span>
+              <span class="tech-tag">Syncfusion Charts</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/Softograph/samsung-sales-force-app" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View Repository
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 9: Bangladeshi Taka Banknote Detection (Featured AI) -->
+        <article class="project-card featured" data-category="ai">
+          <div>
+            <div class="card-top">
+              <div class="card-badges">
+                <span class="badge-featured"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Flagship AI</span>
+                <span class="badge-status">● Model Deployed</span>
+              </div>
+              <span class="card-category">Computer Vision & MLOps</span>
+            </div>
+            <h3 class="project-title">Bangladeshi Taka Banknote Detection</h3>
+            <p class="project-desc">
+              A comprehensive end-to-end computer vision system: Trained and evaluated custom YOLOv11 model weights for all Bangladeshi banknote denominations. Packaged into a high-concurrency FastAPI microservice containerized with Docker, featuring an interactive drag-and-drop web UI styled after Taka denomination color palettes.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">YOLOv11</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">OpenCV</span>
+              <span class="tech-tag">Colab GPU</span>
+            </div>
+            <div class="card-actions">
+              <a href="https://github.com/didipta" target="_blank" class="project-link-btn primary">
+                <i data-lucide="github" style="width:14px;height:14px;"></i> View GitHub Project
+              </a>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);border-radius:var(--radius-md);border:1px solid var(--border-subtle);padding:24px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:var(--font-mono);font-size:13px;color:var(--cyan);margin-bottom:12px;">
+              // Technical Highlights
+            </div>
+            <ul style="list-style:none;font-size:14px;color:var(--text-muted);line-height:1.8;">
+              <li>✓ High mAP50 precision on varying lighting conditions</li>
+              <li>✓ Sub-40ms inference latency on FastAPI Docker container</li>
+              <li>✓ Dynamic bounding box visualization with denomination cues</li>
+              <li>✓ REST endpoint for third-party mobile integration</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Project 9: People Flow Detection -->
+        <article class="project-card" data-category="ai">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Computer Vision</span>
+              <span class="card-category">Applied AI</span>
+            </div>
+            <h3 class="project-title">People Flow Detection</h3>
+            <p class="project-desc">
+              Automated video tracking system that counts pedestrians crossing bidirectional boundary tripwires and produces cumulative spatial movement heatmaps.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">YOLOv8</span>
+              <span class="tech-tag">ByteTrack</span>
+              <span class="tech-tag">OpenCV</span>
+              <span class="tech-tag">Python</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 10: Virtual Try-On -->
+        <article class="project-card" data-category="ai">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Generative AI</span>
+              <span class="card-category">Applied AI</span>
+            </div>
+            <h3 class="project-title">Virtual Try-On</h3>
+            <p class="project-desc">
+              Interactive fashion tech pipeline: combines human pose segmentation via MediaPipe & SegFormer, blending garments onto subjects with generative Gemini API and a Gradio interface.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">MediaPipe</span>
+              <span class="tech-tag">SegFormer</span>
+              <span class="tech-tag">Gemini API</span>
+              <span class="tech-tag">Gradio</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 11: Question Answering with BERT -->
+        <article class="project-card" data-category="ai">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">NLP Transformers</span>
+              <span class="card-category">Deep Learning</span>
+            </div>
+            <h3 class="project-title">Question Answering with BERT</h3>
+            <p class="project-desc">
+              Fine-tuned a bidirectional transformer (BERT) model for high-accuracy extractive question answering on the Stanford SQuAD v1.1 benchmark dataset.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">Hugging Face</span>
+              <span class="tech-tag">Transformers</span>
+              <span class="tech-tag">BERT</span>
+              <span class="tech-tag">PyTorch</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 12: Sentiment Analysis on IMDB -->
+        <article class="project-card" data-category="ai">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">NLP Research</span>
+              <span class="card-category">Machine Learning</span>
+            </div>
+            <h3 class="project-title">Sentiment Analysis on IMDB</h3>
+            <p class="project-desc">
+              Comparative benchmark study contrasting TF-IDF classifiers, Word2Vec neural embeddings, and fine-tuned BERT representations for large-scale review sentiment scoring.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">scikit-learn</span>
+              <span class="tech-tag">Word2Vec</span>
+              <span class="tech-tag">BERT</span>
+              <span class="tech-tag">Pandas</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 13: Leo, Multi-Agent Study Tutor -->
+        <article class="project-card" data-category="ai">
+          <div>
+            <div class="card-top">
+              <span class="badge-status">Autonomous Agents</span>
+              <span class="card-category">Agentic AI</span>
+            </div>
+            <h3 class="project-title">Leo, Multi-Agent Study Tutor</h3>
+            <p class="project-desc">
+              Multi-agent pedagogical system featuring coordinator, explainer, quiz generator, and evaluator agents working collaboratively to iteratively teach complex concepts.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">CrewAI</span>
+              <span class="tech-tag">AutoGen</span>
+              <span class="tech-tag">Gemini API</span>
+              <span class="tech-tag">Python</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a href="https://github.com/didipta" target="_blank" class="project-link-btn primary">
+              <i data-lucide="github" style="width:14px;height:14px;"></i> View on GitHub
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Matrix Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Technology Stack & Tooling</span>
+        <h2 class="section-title">Core Capabilities & Production Toolchain</h2>
+        <p class="section-subtitle">A robust engineering arsenal refined over 4+ years of shipping enterprise web architectures, Flutter mobile apps, and machine learning pipelines.</p>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Frontend -->
+        <div class="skill-card">
+          <div class="skill-category-icon">
+            <i data-lucide="layout"></i>
+          </div>
+          <h3 class="skill-category-title">Frontend Engineering</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip">React.js</span>
+            <span class="skill-chip">Next.js</span>
+            <span class="skill-chip">TypeScript</span>
+            <span class="skill-chip">Tailwind CSS</span>
+            <span class="skill-chip">Redux Toolkit</span>
+            <span class="skill-chip">HTML5 / CSS3</span>
+            <span class="skill-chip">Bootstrap</span>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skill-card">
+          <div class="skill-category-icon">
+            <i data-lucide="server"></i>
+          </div>
+          <h3 class="skill-category-title">Backend & Microservices</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip">Node.js</span>
+            <span class="skill-chip">NestJS</span>
+            <span class="skill-chip">ASP.NET Core</span>
+            <span class="skill-chip">FastAPI</span>
+            <span class="skill-chip">Prisma ORM</span>
+            <span class="skill-chip">RESTful APIs</span>
+            <span class="skill-chip">JWT Auth</span>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="skill-card">
+          <div class="skill-category-icon">
+            <i data-lucide="smartphone"></i>
+          </div>
+          <h3 class="skill-category-title">Mobile Engineering</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip">Flutter</span>
+            <span class="skill-chip">Dart</span>
+            <span class="skill-chip">Firebase</span>
+            <span class="skill-chip">BLoC / Provider</span>
+            <span class="skill-chip">App Store Deploy</span>
+            <span class="skill-chip">Play Store Deploy</span>
+          </div>
+        </div>
+
+        <!-- AI & Vision -->
+        <div class="skill-card">
+          <div class="skill-category-icon">
+            <i data-lucide="bot"></i>
+          </div>
+          <h3 class="skill-category-title">Applied AI & Vision</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip">YOLOv11 / v8</span>
+            <span class="skill-chip">OpenCV</span>
+            <span class="skill-chip">MediaPipe</span>
+            <span class="skill-chip">Hugging Face</span>
+            <span class="skill-chip">BERT</span>
+            <span class="skill-chip">CrewAI</span>
+            <span class="skill-chip">Gemini API</span>
+          </div>
+        </div>
+
+        <!-- Databases -->
+        <div class="skill-card">
+          <div class="skill-category-icon">
+            <i data-lucide="database"></i>
+          </div>
+          <h3 class="skill-category-title">Databases & Storage</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip">PostgreSQL</span>
+            <span class="skill-chip">MongoDB</span>
+            <span class="skill-chip">MySQL</span>
+            <span class="skill-chip">MS SQL Server</span>
+            <span class="skill-chip">Cloud Firestore</span>
+            <span class="skill-chip">Redis</span>
+          </div>
+        </div>
+
+        <!-- DevOps & Tools -->
+        <div class="skill-card">
+          <div class="skill-category-icon">
+            <i data-lucide="terminal"></i>
+          </div>
+          <h3 class="skill-category-title">DevOps & Tooling</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip">Docker</span>
+            <span class="skill-chip">Git / GitHub</span>
+            <span class="skill-chip">Vercel</span>
+            <span class="skill-chip">CI / CD Actions</span>
+            <span class="skill-chip">Postman</span>
+            <span class="skill-chip">Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Solving & Education Split Section -->
+  <section id="problem-solving">
+    <div class="container">
+      <div class="two-column-grid">
+        <!-- Algorithmic & Problem Solving -->
+        <div class="info-card">
+          <span class="section-tag">Algorithmic Rigor</span>
+          <h3 style="font-family:var(--font-display);font-size:26px;color:#fff;margin-bottom:20px;">
+            Computational Thinking & Core Algorithms
+          </h3>
+          
+          <div class="info-item">
+            <h4>
+              <a href="https://leetcode.com/u/sdipta707/" target="_blank" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+                LeetCode Profile <i data-lucide="external-link" style="width:14px;height:14px;color:var(--cyan);"></i>
+              </a>
+              <span style="font-family:var(--font-mono);font-size:12px;color:var(--cyan);">100+ Solved</span>
+            </h4>
+            <p>Mastered core algorithmic paradigms: Dynamic Programming, Graph Traversals, Trees, Sliding Window, and Hash Tables.</p>
+          </div>
+
+          <div class="info-item">
+            <h4>
+              <a href="https://codeforces.com/profile/sdipta707" target="_blank" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+                Codeforces <i data-lucide="external-link" style="width:14px;height:14px;color:var(--cyan);"></i>
+              </a>
+              <span style="font-family:var(--font-mono);font-size:12px;color:var(--primary-light);">Competitive</span>
+            </h4>
+            <p>Active participant sharpening math and speed-coding under strict time limits.</p>
+          </div>
+
+          <div class="info-item">
+            <h4>
+              <span>HackerRank</span>
+              <span style="font-family:var(--font-mono);font-size:12px;color:#FBBF24;">5-Star Rated</span>
+            </h4>
+            <p>Earned 5-Star badges in Problem Solving and C# with 50+ challenges completed.</p>
+          </div>
+        </div>
+
+        <!-- Education & Certifications -->
+        <div class="info-card">
+          <span class="section-tag">Verified Credentials</span>
+          <h3 style="font-family:var(--font-display);font-size:26px;color:#fff;margin-bottom:20px;">
+            Academic Background & Certifications
+          </h3>
+
+          <div class="info-item">
+            <h4>
+              <span>B.Sc. in Computer Science</span>
+              <span style="font-family:var(--font-mono);font-size:12px;color:var(--emerald);">Honors &bull; 2022</span>
+            </h4>
+            <p>American International University-Bangladesh (AIUB). Focus on Software Engineering, Data Structures, and Systems.</p>
+          </div>
+
+          <div class="info-item">
+            <h4>
+              <a href="https://ostad.app/share/certificate/c18411-dipta-saha" target="_blank" style="color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+                App Development with Flutter <i data-lucide="external-link" style="width:14px;height:14px;color:var(--cyan);"></i>
+              </a>
+              <span style="font-family:var(--font-mono);font-size:12px;color:var(--cyan);">Ostad Verified</span>
+            </h4>
+            <p>Comprehensive professional certification covering architecture, state management, and store releases.</p>
+          </div>
+
+          <div class="info-item">
+            <h4>
+              <span>Next Level Web Development</span>
+              <span style="font-family:var(--font-mono);font-size:12px;color:var(--primary-light);">Programming Hero</span>
+            </h4>
+            <p>Advanced full-stack specialization in Next.js, Node.js, and TypeScript production microservices.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <span class="section-tag" style="color:var(--cyan);">Initiate Collaboration</span>
+        <h2>Let’s Architect Something Exceptional Together</h2>
+        <p>
+          Open to new engineering opportunities, technical consulting, and high-impact full-stack, mobile, or AI product development. Send me a message directly.
+        </p>
+
+        <!-- Direct Contact Form -->
+        <div class="contact-form-wrapper">
+          <form id="portfolio-contact-form" class="contact-form" action="https://formsubmit.co/sdipta707@gmail.com" method="POST">
+            <!-- FormSubmit Email Config -->
+            <input type="hidden" name="_subject" id="form-subject-hidden" value="New Portfolio Inquiry for Dipta Saha">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div class="form-row form-row-2">
+              <div class="form-group">
+                <label for="contact-name">
+                  <i data-lucide="user" style="width:14px;height:14px;"></i> Your Name
+                </label>
+                <input type="text" id="contact-name" name="name" placeholder="e.g. Alex Morgan" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="contact-email">
+                  <i data-lucide="mail" style="width:14px;height:14px;"></i> Your Email
+                </label>
+                <input type="email" id="contact-email" name="email" placeholder="e.g. alex@company.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-subject">
+                <i data-lucide="tag" style="width:14px;height:14px;"></i> Subject / Project Type
+              </label>
+              <input type="text" id="contact-subject" name="subject" placeholder="e.g. Flutter Mobile App / Full-time Role / Web Project" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message">
+                <i data-lucide="message-square" style="width:14px;height:14px;"></i> Your Message
+              </label>
+              <textarea id="contact-message" name="message" rows="5" placeholder="Hi Dipta, I came across your portfolio and would love to discuss a project..." required></textarea>
+            </div>
+
+            <!-- Form Status / Alerts -->
+            <div id="contact-form-status" class="form-status-alert" style="display: none;" role="alert"></div>
+
+            <div class="form-actions">
+              <button type="button" id="contact-gmail-btn" class="contact-submit-btn" title="Open directly in Gmail with your message pre-filled">
+                <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                <span>Send via Gmail</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Quick Connect Channels -->
+        <div class="contact-divider">
+          <span>or connect directly via</span>
+        </div>
+
+        <div class="contact-links-row">
+          <a href="mailto:sdipta707@gmail.com" class="contact-button">
+            <i data-lucide="mail" style="width:18px;height:18px;"></i>
+            <span>sdipta707@gmail.com</span>
+          </a>
+          <button type="button" class="contact-button" onclick="copyEmail()">
+            <i data-lucide="copy" style="width:18px;height:18px;"></i>
+            <span>Copy Email</span>
+          </button>
+          <a href="tel:01881401919" class="contact-button">
+            <i data-lucide="phone" style="width:18px;height:18px;"></i>
+            <span>01881401919</span>
+          </a>
+          <a href="https://www.linkedin.com/in/dipta-saha-11a4b8194/" target="_blank" class="contact-button">
+            <i data-lucide="linkedin" style="width:18px;height:18px;"></i>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/didipta" target="_blank" class="contact-button">
+            <i data-lucide="github" style="width:18px;height:18px;"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Dipta Saha &bull; Software Engineer &bull; Dhaka, Bangladesh</p>
+      <p style="font-size:12px;margin-top:8px;color:var(--text-dim);">Built with Three.js 3D Acceleration, Modular CSS & Clean Modern Web Standards</p>
+    </div>
+  </footer>
+
+  <!-- AI Chatbot Floating Widget -->
+  <aside id="ai-chat-widget" aria-label="AI Portfolio Assistant">
+    <!-- Teaser floating badge -->
+    <div id="ai-teaser-badge" class="ai-teaser-badge" role="button" tabindex="0">
+      <i data-lucide="sparkles" class="sparkle-icon" style="width:14px;height:14px;"></i>
+      <span>Ask Dipta AI &bull; Online</span>
+    </div>
+
+    <!-- Floating Trigger Button -->
+    <div class="ai-trigger-wrap">
+      <div class="ai-trigger-pulse"></div>
+      <div class="ai-trigger-pulse ring-2"></div>
+      <button id="ai-trigger-btn" class="ai-trigger-btn" aria-label="Open AI Chat Assistant" title="Chat with Dipta AI">
+        <!-- 3D Mini Robot Hologram Canvas -->
+        <canvas id="ai-bot-3d-canvas" class="ai-bot-3d-canvas" width="56" height="56"></canvas>
+        <i data-lucide="x" class="ai-trigger-icon icon-close"></i>
+      </button>
+    </div>
+
+    <!-- Chat Window Container -->
+    <div id="ai-chat-window" class="ai-chat-window" role="dialog" aria-modal="false" aria-label="Dipta AI Assistant Window">
+      <!-- Header -->
+      <div class="ai-chat-header">
+        <div class="ai-header-left">
+          <div class="ai-avatar-wrapper">
+            <canvas id="ai-bot-header-3d-canvas" class="ai-bot-header-3d-canvas" width="38" height="38"></canvas>
+            <span class="ai-online-dot" title="Active"></span>
+          </div>
+          <div>
+            <div class="ai-header-title">
+              <span>Dipta AI</span>
+              <i data-lucide="sparkles" style="width:13px;height:13px;color:#38bdf8;"></i>
+            </div>
+            <div class="ai-header-subtitle">
+              <span>Interactive Portfolio Assistant</span>
+            </div>
+          </div>
+        </div>
+        <div class="ai-header-actions">
+          <button id="ai-reset-btn" class="ai-btn-icon" title="Reset Conversation" aria-label="Reset Conversation">
+            <i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i>
+          </button>
+          <button id="ai-close-btn" class="ai-btn-icon" title="Close" aria-label="Close Assistant">
+            <i data-lucide="x" style="width:16px;height:16px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Body -->
+      <div id="ai-chat-body" class="ai-chat-body">
+        <!-- Bot Greeting -->
+        <div class="ai-message bot">
+          <div class="ai-msg-avatar">
+            <i data-lucide="bot" style="width:16px;height:16px;"></i>
+          </div>
+          <div class="ai-msg-bubble">
+            Hello! 👋 I'm Dipta's portfolio AI assistant. I can show you his <strong>14 production projects</strong>, Flutter & mobile engineering experience, machine learning work, or contact info. How can I help you today?
+          </div>
+        </div>
+
+        <!-- Quick Prompts Chips -->
+        <div class="ai-suggestions-wrap" id="ai-suggestions">
+          <span class="ai-suggestions-title">Quick Questions:</span>
+          <div class="ai-suggestions-list">
+            <button type="button" class="ai-prompt-chip" data-query="Tell me about your mobile apps">📱 Mobile Apps (4)</button>
+            <button type="button" class="ai-prompt-chip" data-query="What is your tech stack?">⚡ Tech Stack</button>
+            <button type="button" class="ai-prompt-chip" data-query="Tell me about Field Force App">🗺️ Field Force App</button>
+            <button type="button" class="ai-prompt-chip" data-query="What are your AI/ML projects?">🧠 AI & Computer Vision</button>
+            <button type="button" class="ai-prompt-chip" data-query="How can I contact or hire Dipta?">📬 Contact & Hire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Footer -->
+      <div class="ai-chat-footer">
+        <form id="ai-chat-form" class="ai-input-form" autocomplete="off">
+          <input id="ai-chat-input" type="text" placeholder="Type a question..." maxlength="200" aria-label="Type message">
+          <button type="submit" id="ai-send-btn" class="ai-send-btn" aria-label="Send Message" disabled>
+            <i data-lucide="send" style="width:15px;height:15px;"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toast Notification -->
+  <div id="toast">
+    <i data-lucide="check-circle" style="color:var(--cyan);width:18px;height:18px;"></i>
+    <span id="toast-message">Email address copied to clipboard!</span>
+  </div>
+
+  <!-- Custom Modular JavaScript Engine -->
+  <script src="js/main.js"></script>
+</body>
+</html>
