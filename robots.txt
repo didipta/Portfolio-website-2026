@@ -3,5 +3,5 @@ User-agent: *
 Allow: /
 
 # Host & Sitemap
-Host: https://didipta.github.io
-Sitemap: https://didipta.github.io/Portfolio-website-2026/sitemap.xml
+Host: https://dipta-saha.vercel.app
+Sitemap: https://dipta-saha.vercel.app/sitemap.xml

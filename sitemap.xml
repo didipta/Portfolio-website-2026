@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://didipta.github.io/Portfolio-website-2026/</loc>
+    <loc>https://dipta-saha.vercel.app/</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://didipta.github.io/Portfolio-website-2026/og-image.jpg</image:loc>
+      <image:loc>https://dipta-saha.vercel.app/og-image.jpg</image:loc>
       <image:title>Dipta Saha — Software Engineer Portfolio Social Card</image:title>
       <image:caption>Dipta Saha portfolio banner featuring software engineering, Flutter mobile apps, and Python AI systems</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://didipta.github.io/Portfolio-website-2026/dipta-saha.jpg</image:loc>
+      <image:loc>https://dipta-saha.vercel.app/dipta-saha.jpg</image:loc>
       <image:title>Dipta Saha — Software Engineer Portrait</image:title>
       <image:caption>Dipta Saha working on software engineering</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://didipta.github.io/Portfolio-website-2026/og-image.png</image:loc>
+      <image:loc>https://dipta-saha.vercel.app/og-image.png</image:loc>
       <image:title>Dipta Saha — Portfolio Preview PNG</image:title>
       <image:caption>Dipta Saha portfolio preview card</image:caption>
     </image:image>
