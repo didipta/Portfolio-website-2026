@@ -1,23 +1,66 @@
+# pyright: reportMissingImports=false
+# -*- coding: utf-8 -*-
+"""
+=============================================================================
+Dipta Saha — Open Graph & Twitter Social Share Card Generator
+Generates: og-image.jpg, og-image.png, and og-preview.jpg
+Standard Resolution: 1200 x 630 pixels (1.91:1 aspect ratio)
+=============================================================================
+"""
+
 import os
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import sys
+import subprocess
+
+# Ensure Pillow (PIL) is available; auto-install if missing
+try:
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter  # type: ignore
+except ImportError:
+    print("[*] Pillow is not installed in this environment. Installing automatically...")
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "pillow"])
+        from PIL import Image, ImageDraw, ImageFont, ImageFilter  # type: ignore
+        print("[+] Pillow installed successfully!\n")
+    except Exception as err:
+        print("[!] Could not auto-install Pillow:", err)
+        print("[!] Please run manually in your terminal: pip install pillow")
+        sys.exit(1)
+
+
+def get_font(font_path, size):
+    """Safely loads a TrueType font or falls back to system default."""
+    if font_path and os.path.exists(font_path):
+        try:
+            return ImageFont.truetype(font_path, size)
+        except Exception:
+            pass
+    try:
+        # Pillow 10.1+ supports size in load_default
+        return ImageFont.load_default(size=size)  # type: ignore
+    except TypeError:
+        return ImageFont.load_default()
+
 
 def create_og_image():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
     W, H = 1200, 630
-    
-    # Base dark obsidian canvas
+
+    print(f"[*] Starting Open Graph image generation (Target: {W}x{H})...")
+
+    # 1. Base dark obsidian canvas
     img = Image.new("RGB", (W, H), "#040714")
-    
+
     # Ambient glows
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     glow_draw = ImageDraw.Draw(glow)
-    
+
     # Cyan glow (top left)
     glow_draw.ellipse((-100, -100, 480, 480), fill=(6, 182, 212, 80))
     # Indigo glow (bottom center/left)
     glow_draw.ellipse((220, 280, 780, 800), fill=(99, 102, 241, 70))
     # Purple glow (behind photo)
     glow_draw.ellipse((720, 60, 1280, 620), fill=(168, 85, 247, 65))
-    
+
     glow = glow.filter(ImageFilter.GaussianBlur(85))
     img.paste(glow, (0, 0), glow)
 
@@ -33,32 +76,42 @@ def create_og_image():
     draw.rounded_rectangle([(18, 18), (W - 18, H - 18)], radius=24, outline=(99, 102, 241, 150), width=2)
     draw.rounded_rectangle([(21, 21), (W - 21, H - 21)], radius=22, outline=(6, 182, 212, 70), width=1)
 
-    # Fonts
-    font_dir = "C:/Windows/Fonts"
-    f_brand = ImageFont.truetype(f"{font_dir}/segoeui.ttf", 15)
-    f_badge = ImageFont.truetype(f"{font_dir}/segoeuib.ttf", 13)
-    f_name = ImageFont.truetype(f"{font_dir}/segoeuib.ttf", 52)
-    f_role = ImageFont.truetype(f"{font_dir}/segoeuib.ttf", 26)
-    f_subrole = ImageFont.truetype(f"{font_dir}/segoeuib.ttf", 19)
-    f_desc = ImageFont.truetype(f"{font_dir}/segoeui.ttf", 17)
-    f_pill_title = ImageFont.truetype(f"{font_dir}/segoeuib.ttf", 15)
-    f_pill_sub = ImageFont.truetype(f"{font_dir}/segoeui.ttf", 13)
-    f_meta = ImageFont.truetype(f"{font_dir}/segoeui.ttf", 14)
+    # Cross-platform font discovery
+    font_candidates = [
+        "C:/Windows/Fonts/segoeuib.ttf",
+        "C:/Windows/Fonts/segoeui.ttf",
+        "C:/Windows/Fonts/arialbd.ttf",
+        "C:/Windows/Fonts/arial.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    ]
+    bold_font_path = next((f for f in font_candidates if os.path.exists(f) and any(b in f.lower() for b in ["bd", "uib", "bold"])), None)
+    regular_font_path = next((f for f in font_candidates if os.path.exists(f) and not any(b in f.lower() for b in ["bd", "uib", "bold"])), None)
 
-    # 2. Right Side: Dipta Saha Portrait Photo (Enlarged & Focused on Face + Laptop)
-    photo_path = "e:/my cv 2025/Portfolio-website-2026/dipta-saha.jpg"
+    f_brand = get_font(regular_font_path or bold_font_path, 15)
+    f_badge = get_font(bold_font_path or regular_font_path, 13)
+    f_name = get_font(bold_font_path or regular_font_path, 52)
+    f_role = get_font(bold_font_path or regular_font_path, 26)
+    f_subrole = get_font(bold_font_path or regular_font_path, 19)
+    f_desc = get_font(regular_font_path or bold_font_path, 17)
+    f_pill_title = get_font(bold_font_path or regular_font_path, 15)
+    f_pill_sub = get_font(regular_font_path or bold_font_path, 13)
+    f_meta = get_font(regular_font_path or bold_font_path, 14)
+
+    # 2. Right Side: Dipta Saha Portrait Photo (Focused on Face + Laptop)
+    photo_path = os.path.join(base_dir, "dipta-saha.jpg")
     if os.path.exists(photo_path):
+        print(f"[*] Processing portrait image: {photo_path}")
         portrait = Image.open(photo_path).convert("RGBA")
         src_w, src_h = portrait.size  # 819 x 1024
 
-        # Crop to center Dipta's face (top: ~380) and laptop (bottom: ~980)
         crop_top = 370
         crop_bottom = 990
         crop_h = crop_bottom - crop_top
         pw, ph = 440, 520
-        target_ratio = pw / ph  # 440 / 520 = 0.846
+        target_ratio = pw / ph
 
-        # Determine width from target_ratio
         crop_w = int(crop_h * target_ratio)
         if crop_w > src_w:
             crop_w = src_w
@@ -94,6 +147,8 @@ def create_og_image():
         b_draw.ellipse([(14, 13), (24, 23)], fill=(16, 185, 129))
         b_draw.text((32, 9), "Available for Projects", fill="#34D399", font=f_badge)
         img.paste(badge_bg, (bx, by), badge_bg)
+    else:
+        print(f"[!] Warning: Portrait '{photo_path}' not found. Skipping photo framing.")
 
     # 3. Left Side Content
     lx = 60
@@ -139,15 +194,19 @@ def create_og_image():
     draw.line([(lx, 536), (lx + 580, 536)], fill=(255, 255, 255, 30), width=1)
     draw.text((lx, 548), "Dhaka, Bangladesh   •   github.com/didipta   •   sdipta707@gmail.com", fill="#64748B", font=f_meta)
 
-    # Export
-    out_png = "e:/my cv 2025/Portfolio-website-2026/og-image.png"
-    out_jpg = "e:/my cv 2025/Portfolio-website-2026/og-image.jpg"
-    out_preview = "e:/my cv 2025/Portfolio-website-2026/og-preview.jpg"
+    # Export paths
+    out_png = os.path.join(base_dir, "og-image.png")
+    out_jpg = os.path.join(base_dir, "og-image.jpg")
+    out_preview = os.path.join(base_dir, "og-preview.jpg")
 
     img.save(out_png, "PNG", optimize=True)
     img.save(out_jpg, "JPEG", quality=95, optimize=True)
     img.save(out_preview, "JPEG", quality=95, optimize=True)
-    print("Regenerated successfully:", out_png, out_jpg)
+
+    print("\n[+] Success! The following social cards were generated at 1200x630:")
+    print(f"    - {out_jpg} ({os.path.getsize(out_jpg)} bytes)")
+    print(f"    - {out_png} ({os.path.getsize(out_png)} bytes)")
+
 
 if __name__ == "__main__":
     create_og_image()
