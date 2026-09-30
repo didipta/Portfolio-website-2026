@@ -199,8 +199,8 @@ header {
 }
 
 .brand-avatar {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--grad-brand);
   display: flex;
@@ -212,6 +212,17 @@ header {
   color: #fff;
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 10px rgba(236, 72, 153, 0.35);
   border: 1.5px solid rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.brand-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
 }
 
 .brand-name {
@@ -1412,6 +1423,195 @@ section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
+}
+
+/* ==========================================================================
+   About Section Portrait Showcase Card
+   ========================================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 370px 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.about-portrait-card {
+  background: linear-gradient(145deg, rgba(17, 24, 46, 0.82) 0%, rgba(10, 15, 29, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(99, 102, 241, 0.16);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.about-portrait-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #06b6d4, #a855f7);
+}
+
+.about-portrait-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.6), 0 0 35px rgba(99, 102, 241, 0.25);
+}
+
+.portrait-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 370px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.about-portrait-card:hover .portrait-img {
+  transform: scale(1.04);
+}
+
+.portrait-status-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-family: var(--font-mono);
+  color: #34D399;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.portrait-details {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.portrait-name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.portrait-role {
+  color: var(--cyan);
+  font-size: 13.5px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  margin-bottom: 14px;
+}
+
+.portrait-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.portrait-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.portrait-links {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.portrait-link-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.portrait-link-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.portrait-link-btn.primary {
+  background: var(--grad-brand);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+}
+
+.portrait-link-btn.primary:hover {
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.info-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .portrait-image-wrapper {
+    height: 340px;
+  }
 }
 
 .info-card {

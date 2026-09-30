@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://didipta.github.io/Portfolio-website-2026/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://didipta.github.io/Portfolio-website-2026/dipta-saha.jpg</image:loc>
+      <image:title>Dipta Saha — Software Engineer</image:title>
+      <image:caption>Dipta Saha working on software engineering, Flutter apps, and AI systems</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://didipta.github.io/Portfolio-website-2026/og-preview.svg</image:loc>
+      <image:title>Dipta Saha — Portfolio Architecture Banner</image:title>
+      <image:caption>Dipta Saha portfolio preview banner showcasing Flutter, Full-Stack, and Python AI expertise</image:caption>
+    </image:image>
+  </url>
+</urlset>

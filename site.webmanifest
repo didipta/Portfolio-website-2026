@@ -1,0 +1,17 @@
+{
+  "name": "Dipta Saha — Software Engineer Portfolio",
+  "short_name": "Dipta Saha",
+  "description": "Software Engineer with 4+ years of experience engineering scalable web platforms, Flutter mobile apps, and enterprise computer vision systems.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
