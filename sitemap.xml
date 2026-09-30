@@ -7,14 +7,19 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://didipta.github.io/Portfolio-website-2026/dipta-saha.jpg</image:loc>
-      <image:title>Dipta Saha — Software Engineer</image:title>
-      <image:caption>Dipta Saha working on software engineering, Flutter apps, and AI systems</image:caption>
+      <image:loc>https://didipta.github.io/Portfolio-website-2026/og-image.jpg</image:loc>
+      <image:title>Dipta Saha — Software Engineer Portfolio Social Card</image:title>
+      <image:caption>Dipta Saha portfolio banner featuring software engineering, Flutter mobile apps, and Python AI systems</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://didipta.github.io/Portfolio-website-2026/og-preview.svg</image:loc>
-      <image:title>Dipta Saha — Portfolio Architecture Banner</image:title>
-      <image:caption>Dipta Saha portfolio preview banner showcasing Flutter, Full-Stack, and Python AI expertise</image:caption>
+      <image:loc>https://didipta.github.io/Portfolio-website-2026/dipta-saha.jpg</image:loc>
+      <image:title>Dipta Saha — Software Engineer Portrait</image:title>
+      <image:caption>Dipta Saha working on software engineering</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://didipta.github.io/Portfolio-website-2026/og-image.png</image:loc>
+      <image:title>Dipta Saha — Portfolio Preview PNG</image:title>
+      <image:caption>Dipta Saha portfolio preview card</image:caption>
     </image:image>
   </url>
 </urlset>
