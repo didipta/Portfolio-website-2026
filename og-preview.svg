@@ -1,151 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#030712"/>
-      <stop offset="50%" stop-color="#0b1120"/>
-      <stop offset="100%" stop-color="#030712"/>
+    <!-- Seamless Mask for Photo: Fades smoothly from transparent to solid -->
+    <linearGradient id="photoFadeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="1"/>
     </linearGradient>
 
-    <!-- Border Glow Gradient -->
-    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8"/>
-      <stop offset="50%" stop-color="#6366f1" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.8"/>
-    </linearGradient>
+    <mask id="photoFadeMask">
+      <rect x="0" y="0" width="600" height="630" fill="url(#photoFadeGrad)"/>
+    </mask>
 
-    <!-- Card Fill Gradient -->
-    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#030712" stop-opacity="0.95"/>
-    </linearGradient>
+    <!-- Ambient Glow Blurs (No hard edges, pure cinematic lighting) -->
+    <filter id="ambientBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="90"/>
+    </filter>
 
-    <!-- Text Glow Gradients -->
-    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="50%" stop-color="#e0e7ff"/>
-      <stop offset="100%" stop-color="#38bdf8"/>
-    </linearGradient>
-
-    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#818cf8"/>
     </linearGradient>
-
-    <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#818cf8"/>
-      <stop offset="100%" stop-color="#6366f1"/>
-    </linearGradient>
-
-    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c084fc"/>
-      <stop offset="100%" stop-color="#a855f7"/>
-    </linearGradient>
-
-    <!-- Filter for glows -->
-    <filter id="blurGlow1" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="80"/>
-    </filter>
-    <filter id="blurGlow2" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="60"/>
-    </filter>
-    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="16" stdDeviation="32" flood-color="#000000" flood-opacity="0.6"/>
-    </filter>
-
-    <!-- Tech Grid Pattern -->
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1"/>
-    </pattern>
   </defs>
 
-  <!-- Deep Background -->
-  <rect width="1200" height="630" fill="url(#bgGrad)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
+  <!-- 1. Deep Obsidian Slate Canvas (Zero Outer Container Box) -->
+  <rect width="1200" height="630" fill="#060913"/>
 
-  <!-- Ambient Light Orbs -->
-  <circle cx="150" cy="120" r="160" fill="#06b6d4" opacity="0.18" filter="url(#blurGlow1)"/>
-  <circle cx="1050" cy="180" r="180" fill="#6366f1" opacity="0.18" filter="url(#blurGlow1)"/>
-  <circle cx="600" cy="540" r="150" fill="#a855f7" opacity="0.14" filter="url(#blurGlow2)"/>
+  <!-- 2. Ambient Atmosphere Glows -->
+  <circle cx="100" cy="120" r="220" fill="#06b6d4" opacity="0.18" filter="url(#ambientBlur)"/>
+  <circle cx="360" cy="380" r="240" fill="#6366f1" opacity="0.14" filter="url(#ambientBlur)"/>
+  <circle cx="1000" cy="80" r="200" fill="#f59e0b" opacity="0.12" filter="url(#ambientBlur)"/>
 
-  <!-- Main Showcase Container -->
-  <g filter="url(#cardShadow)">
-    <rect x="50" y="45" width="1100" height="540" rx="24" fill="url(#cardGrad)" stroke="url(#borderGrad)" stroke-width="1.5"/>
+  <!-- 3. Seamless Photo Blend on Right Side (NO BOX, NO BORDER) -->
+  <g transform="translate(600, 0)" mask="url(#photoFadeMask)">
+    <image href="dipta-saha.jpg" x="-60" y="-70" width="660" height="770" preserveAspectRatio="xMidYMid slice"/>
   </g>
 
-  <!-- Inner Top Navigation / Brand Row -->
-  <g transform="translate(90, 85)">
-    <!-- Monogram Avatar -->
-    <rect x="0" y="0" width="56" height="56" rx="14" fill="#0f172a" stroke="url(#borderGrad)" stroke-width="2"/>
-    <text x="28" y="32" text-anchor="middle" dominant-baseline="central" fill="url(#titleGrad)" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="24" letter-spacing="-1">DS</text>
-    <circle cx="48" cy="10" r="4.5" fill="#10b981"/>
+  <!-- 4. Left Side Editorial Typography (Zero Boxes) -->
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif">
+    <!-- Kicker Line -->
+    <circle cx="69" cy="79" r="4" fill="#06b6d4"/>
+    <text x="82" y="83" fill="#38bdf8" font-size="13" font-weight="600" letter-spacing="1.5">SOFTWARE ENGINEER   ·   PORTFOLIO</text>
 
-    <!-- Brand Name & Status -->
-    <text x="72" y="24" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="20">Dipta Saha</text>
-    <text x="72" y="46" fill="#94a3b8" font-family="'JetBrains Mono', monospace, monospace" font-size="13">portfolio.dev &bull; Dhaka, Bangladesh</text>
+    <!-- Hero Name -->
+    <text x="65" y="172" fill="#ffffff" font-size="62" font-weight="800" letter-spacing="-1">Dipta Saha</text>
 
-    <!-- Available for hire pill badge -->
-    <g transform="translate(810, 8)">
-      <rect x="0" y="0" width="210" height="40" rx="20" fill="rgba(16, 185, 129, 0.12)" stroke="rgba(16, 185, 129, 0.35)" stroke-width="1"/>
-      <circle cx="22" cy="20" r="5" fill="#10b981"/>
-      <text x="36" y="25" fill="#34d399" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="14">Available for Projects</text>
-    </g>
-  </g>
+    <!-- Primary Title -->
+    <text x="65" y="224" fill="#38bdf8" font-size="28" font-weight="700">Software Engineer</text>
 
-  <!-- Center Hero Typography -->
-  <g transform="translate(90, 195)">
-    <!-- Tagline Badge -->
-    <rect x="0" y="0" width="250" height="32" rx="16" fill="rgba(99, 102, 241, 0.15)" stroke="rgba(99, 102, 241, 0.35)" stroke-width="1"/>
-    <text x="16" y="21" fill="#a5b4fc" font-family="'JetBrains Mono', monospace" font-weight="600" font-size="13" letter-spacing="1">4+ YEARS OF EXPERIENCE</text>
+    <!-- Key Focus Line -->
+    <text x="65" y="262" fill="#c084fc" font-size="19" font-weight="600">Flutter Mobile   ·   Full-Stack Web   ·   Computer Vision AI</text>
 
-    <!-- Main Title -->
-    <text x="0" y="80" fill="url(#titleGrad)" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="52" letter-spacing="-1.5">
-      Software Engineer
-    </text>
+    <!-- Editorial Bio Statement -->
+    <text x="65" y="306" fill="#94a3b8" font-size="17" font-weight="400">Engineering high-performance cross-platform mobile apps, scalable</text>
+    <text x="65" y="332" fill="#94a3b8" font-size="17" font-weight="400">cloud platforms, and real-time computer vision AI systems.</text>
 
-    <!-- Subtitle / Focus Statement -->
-    <text x="0" y="125" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="21">
-      Engineering high-performance mobile apps, scalable web systems &amp; computer vision AI.
-    </text>
-  </g>
+    <!-- Tech Stack (Clean Typography, No Boxes) -->
+    <text x="65" y="386" fill="#64748b" font-size="12" font-weight="700" letter-spacing="1">CORE TECHNOLOGIES</text>
+    <text x="65" y="410" fill="#e2e8f0" font-size="15" font-weight="500">Flutter  •  Dart  •  Next.js  •  Python  •  FastAPI</text>
+    <text x="65" y="434" fill="#cbd5e1" font-size="15" font-weight="500">Django  •  Docker  •  PostgreSQL  •  YOLO AI</text>
 
-  <!-- 3 Pillar Feature Cards -->
-  <g transform="translate(90, 360)">
-    <!-- Pillar 1: Flutter Mobile -->
-    <g transform="translate(0, 0)">
-      <rect x="0" y="0" width="326" height="120" rx="16" fill="rgba(15, 23, 42, 0.75)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1"/>
-      <circle cx="36" cy="38" r="16" fill="rgba(6, 182, 212, 0.15)"/>
-      <path d="M 32 30 L 42 38 L 32 46" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="64" y="43" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="18">Flutter Mobile</text>
-      <text x="24" y="80" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="14">Cross-Platform iOS &amp; Android Apps</text>
-      <text x="24" y="100" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="12">Play Store &bull; App Store &bull; Firebase</text>
-    </g>
+    <!-- Experience Metric -->
+    <text x="65" y="478" fill="#38bdf8" font-size="15" font-weight="600">4+ Years Experience    •    14+ Production Projects</text>
 
-    <!-- Pillar 2: Full-Stack Web -->
-    <g transform="translate(346, 0)">
-      <rect x="0" y="0" width="326" height="120" rx="16" fill="rgba(15, 23, 42, 0.75)" stroke="rgba(99, 102, 241, 0.3)" stroke-width="1"/>
-      <circle cx="36" cy="38" r="16" fill="rgba(99, 102, 241, 0.15)"/>
-      <rect x="28" y="30" width="16" height="16" rx="3" fill="none" stroke="#818cf8" stroke-width="2"/>
-      <text x="64" y="43" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="18">Full-Stack Web</text>
-      <text x="24" y="80" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="14">Next.js &bull; Node.js &bull; ASP.NET</text>
-      <text x="24" y="100" fill="#818cf8" font-family="'JetBrains Mono', monospace" font-size="12">ERP Systems &bull; High-Traffic APIs</text>
-    </g>
+    <!-- Minimal Hairline Divider -->
+    <line x1="65" y1="518" x2="595" y2="518" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
 
-    <!-- Pillar 3: Applied AI & Vision -->
-    <g transform="translate(692, 0)">
-      <rect x="0" y="0" width="326" height="120" rx="16" fill="rgba(15, 23, 42, 0.75)" stroke="rgba(168, 85, 247, 0.3)" stroke-width="1"/>
-      <circle cx="36" cy="38" r="16" fill="rgba(168, 85, 247, 0.15)"/>
-      <circle cx="36" cy="38" r="7" fill="none" stroke="#c084fc" stroke-width="2"/>
-      <text x="64" y="43" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="18">Python &amp; AI</text>
-      <text x="24" y="80" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="14">Computer Vision &amp; Deep Learning</text>
-      <text x="24" y="100" fill="#c084fc" font-family="'JetBrains Mono', monospace" font-size="12">YOLO &bull; FastAPI &bull; Docker Pipelines</text>
-    </g>
-  </g>
-
-  <!-- Bottom Quick Links Footer Bar -->
-  <g transform="translate(90, 520)">
-    <text x="0" y="24" fill="#64748b" font-family="'JetBrains Mono', monospace" font-size="13">
-      GITHUB: <tspan fill="#e2e8f0">github.com/didipta</tspan>   &bull;   LINKEDIN: <tspan fill="#e2e8f0">Dipta Saha</tspan>   &bull;   EMAIL: <tspan fill="#38bdf8">sdipta707@gmail.com</tspan>
-    </text>
+    <!-- Bottom URL & Info -->
+    <text x="65" y="548" fill="#f8fafc" font-size="15" font-weight="600">dipta-saha.vercel.app</text>
+    <text x="270" y="548" fill="#64748b" font-size="15" font-weight="400">•   github.com/didipta   •   Dhaka, Bangladesh</text>
   </g>
 </svg>
