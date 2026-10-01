@@ -209,50 +209,6 @@
     }
   },
   {
-    "id": "question-answering-with-bert",
-    "title": "Question Answering with BERT",
-    "category": "ai",
-    "kind": "Python · NLP",
-    "featured": false,
-    "status": "Completed",
-    "shortDescription": "Fine-tuned a BERT model for extractive question answering on SQuAD v1.1.",
-    "description": "Fine-tuned a BERT model for extractive question answering on SQuAD v1.1.",
-    "technologies": [
-      "Hugging Face",
-      "Transformers",
-      "BERT",
-      "SQuAD v1.1"
-    ],
-    "links": {
-      "googlePlay": null,
-      "appStore": null,
-      "github": "https://github.com/didipta",
-      "live": null
-    }
-  },
-  {
-    "id": "sentiment-analysis-on-imdb",
-    "title": "Sentiment Analysis on IMDB",
-    "category": "ai",
-    "kind": "Python · NLP",
-    "featured": false,
-    "status": "Completed",
-    "shortDescription": "Compared TF-IDF, Word2Vec and a fine-tuned BERT model on movie review sentiment.",
-    "description": "Compared TF-IDF, Word2Vec and a fine-tuned BERT model on movie review sentiment.",
-    "technologies": [
-      "scikit-learn",
-      "Word2Vec",
-      "BERT",
-      "Python"
-    ],
-    "links": {
-      "googlePlay": null,
-      "appStore": null,
-      "github": "https://github.com/didipta",
-      "live": null
-    }
-  },
-  {
     "id": "leo-multi-agent-study-tutor",
     "title": "Leo, a multi-agent study tutor",
     "category": "ai",
@@ -300,6 +256,106 @@
       "appStore": null,
       "github": "https://github.com/Softograph/samsung-sales-force-app",
       "live": null
+    }
+  },
+  {
+    "id": "medical-ai-agent-system",
+    "title": "Medical AI Multi-Tool Agent System",
+    "category": "ai",
+    "kind": "Python · Clinical AI & Multi-Tool Agent",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "Enterprise-grade clinical AI assistant bridging structured SQL patient datasets with real-time medical literature search, zero-downtime multi-LLM fallback, and graceful degradation.",
+    "description": "An enterprise-grade, fault-tolerant clinical AI assistant designed to bridge structured patient datasets with live medical search. Features multi-database SQL agents for natural language querying across SQLite clinical datasets (Cardiology, Oncology, Metabolic health), real-time clinical guidelines & literature search via Tavily Search API, zero-downtime multi-LLM fallback chaining (Google Gemini & OpenAI GPT-4o-mini via LangChain .with_fallbacks), and a contextual medical fallback engine ensuring 0% crash rates during API quotas or network drops.",
+    "technologies": [
+      "Python 3.11+",
+      "LangChain",
+      "Google Gemini",
+      "OpenAI GPT-4o-mini",
+      "SQLite",
+      "Tavily Search API",
+      "Pytest"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://lnkd.in/gp4JS435",
+      "live": null
+    }
+  },
+  {
+    "id": "bangla-rag-chatbot",
+    "title": "Bangla Book Knowledge Base RAG Chatbot",
+    "category": "ai",
+    "kind": "Python · Bengali NLP & RAG",
+    "featured": false,
+    "status": "Completed",
+    "shortDescription": "End-to-end RAG system built on Bengali classic 'দেবদাস' with automated chapter crawler, dense bge-m3 embeddings, morphological stemmer, and clickable citations.",
+    "description": "An end-to-end Bengali RAG application built on the classic novel 'দেবদাস' (Devdas) from Bengali Wikisource. Engineered an automated crawler with paragraph-preserving chunking, hybrid retrieval pairing dense embeddings (bge-m3) with a Bengali morphological stemmer achieving 100% retrieval hit rate, verified grounding with clickable chapter citations and refusal safeguards, and a real-time conversational interface powered by Streamlit and Groq.",
+    "technologies": [
+      "Python",
+      "RAG Architecture",
+      "bge-m3",
+      "Bengali NLP",
+      "Streamlit",
+      "Groq LLaMA 3",
+      "LangChain"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://lnkd.in/gu4qAnqR",
+      "live": null
+    }
+  },
+  {
+    "id": "bangladesh-multi-tool-agent",
+    "title": "Bangladesh Multi-Tool AI Agent",
+    "category": "ai",
+    "kind": "Python · Autonomous Tool-Calling Agent",
+    "featured": false,
+    "status": "Live",
+    "shortDescription": "Autonomous multi-tool agent intelligently routing questions across Bangladesh hospital data, academic institutions, restaurants, and live web search.",
+    "description": "A Bangladesh-focused autonomous AI agent that interprets user intent in natural language and dynamically routes requests to the optimal data source. Connects structured SQLite databases covering hospitals, colleges/schools, and restaurants with live Tavily web search via LangChain and Google Gemini function calling. Packaged with a Streamlit interface and Docker containerization.",
+    "technologies": [
+      "Python",
+      "LangChain",
+      "Google Gemini",
+      "SQLite",
+      "SQL",
+      "Streamlit",
+      "Tavily Search API",
+      "Docker",
+      "Hugging Face"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta",
+      "live": "https://lnkd.in/gEhdKeQY"
+    }
+  },
+  {
+    "id": "ai-linkedin-post-generator",
+    "title": "AI LinkedIn Post Generator",
+    "category": "ai",
+    "kind": "Python · Generative AI & Streamlit",
+    "featured": false,
+    "status": "Live",
+    "shortDescription": "Multi-lingual LinkedIn content generation agent supporting 5 languages with structural validation, viral hooks, hashtag suggestions, and .txt export.",
+    "description": "An intelligent generative AI assistant built with Python, Streamlit, LangChain, and Google Gemini to automatically produce professional, publish-ready LinkedIn posts. Features multi-lingual generation across English, Bengali, Hindi, Spanish, and French, automated hook crafting and CTA optimization, agent validation for post structure and paragraph counts, and instant .txt file exports.",
+    "technologies": [
+      "Python",
+      "Streamlit",
+      "LangChain",
+      "Google Gemini",
+      "Prompt Engineering"
+    ],
+    "links": {
+      "googlePlay": null,
+      "appStore": null,
+      "github": "https://github.com/didipta/Linkedin-post-agent",
+      "live": "https://lnkd.in/gF4TxQzn"
     }
   }
 ]

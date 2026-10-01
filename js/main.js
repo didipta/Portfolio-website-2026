@@ -15,7 +15,47 @@
   // --------------------------------------------------------------------------
   // 1. Initialize Icons
   // --------------------------------------------------------------------------
+  const CUSTOM_BRAND_SVGS = {
+    github: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>',
+    linkedin: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>'
+  };
+
+  function renderCustomIcons() {
+    Object.keys(CUSTOM_BRAND_SVGS).forEach(function (name) {
+      const elements = document.querySelectorAll('[data-lucide="' + name + '"]');
+      elements.forEach(function (el) {
+        const style = el.getAttribute('style') || '';
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(CUSTOM_BRAND_SVGS[name], 'image/svg+xml');
+        const svg = doc.querySelector('svg');
+        if (!svg) return;
+
+        let w = el.getAttribute('width');
+        let h = el.getAttribute('height');
+        const matchW = style.match(/width:\s*(\d+(?:\.\d+)?(?:px|rem|em)?)/i);
+        const matchH = style.match(/height:\s*(\d+(?:\.\d+)?(?:px|rem|em)?)/i);
+        if (matchW) w = matchW[1];
+        if (matchH) h = matchH[1];
+        if (w) svg.style.width = w.includes('px') || w.includes('em') || w.includes('rem') ? w : w + 'px';
+        if (h) svg.style.height = h.includes('px') || h.includes('em') || h.includes('rem') ? h : h + 'px';
+
+        if (el.className) {
+          svg.setAttribute('class', svg.getAttribute('class') + ' ' + el.className);
+        }
+        if (style) {
+          svg.style.cssText += ';' + style;
+        }
+        svg.style.flexShrink = '0';
+        svg.style.display = 'inline-block';
+        svg.style.verticalAlign = 'middle';
+
+        el.replaceWith(svg);
+      });
+    });
+  }
+
   function initIcons() {
+    renderCustomIcons();
     if (typeof lucide !== 'undefined' && lucide.createIcons) {
       lucide.createIcons();
     }
@@ -53,7 +93,7 @@
   };
 
   // --------------------------------------------------------------------------
-  // 3. Projects Category Filtering
+  // 3. Projects Category Filtering (Cinematic Stagger Animation)
   // --------------------------------------------------------------------------
   function filterProjects(targetFilter) {
     const filterButtons = document.querySelectorAll('.tab-btn');
@@ -64,16 +104,20 @@
       btn.classList.toggle('active', f === targetFilter);
     });
 
+    let matchedIndex = 0;
     projectCards.forEach((card) => {
       const category = card.getAttribute('data-category');
       if (targetFilter === 'all' || category === targetFilter) {
         card.style.display = card.classList.contains('featured') ? 'grid' : 'flex';
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 10);
+        card.classList.remove('filter-anim-in');
+        // Trigger browser reflow for clean re-animation
+        void card.offsetWidth;
+        card.style.animationDelay = `${matchedIndex * 45}ms`;
+        card.classList.add('filter-anim-in');
+        matchedIndex++;
       } else {
         card.style.display = 'none';
+        card.classList.remove('filter-anim-in');
       }
     });
   }
@@ -89,44 +133,63 @@
   }
 
   // --------------------------------------------------------------------------
-  // 4. 3D Card Tilt Physics (Perspective Mouse Move)
+  // 4. 3D Card Tilt Physics & Interactive Spotlight Cursor
   // --------------------------------------------------------------------------
   function initCardTilt() {
     if (window.matchMedia('(hover: none)').matches) return;
 
-    const tiltCards = document.querySelectorAll('.project-card, #hero-tilt-card');
-    tiltCards.forEach((card) => {
+    const interactiveCards = document.querySelectorAll(
+      '.project-card, #hero-tilt-card, .info-card, .about-portrait-card, .skill-card'
+    );
+
+    interactiveCards.forEach((card) => {
+      card.classList.add('spotlight-card');
+
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -5;
-        const rotateY = ((x - centerX) / centerX) * 5;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        // Subtle 3D tilt on project cards and hero card
+        if (card.classList.contains('project-card') || card.id === 'hero-tilt-card') {
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -4.5;
+          const rotateY = ((x - centerX) / centerX) * 4.5;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        }
       });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+        card.style.setProperty('--mouse-x', `-999px`);
+        card.style.setProperty('--mouse-y', `-999px`);
+        if (card.classList.contains('project-card') || card.id === 'hero-tilt-card') {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+        }
       });
     });
   }
 
   // --------------------------------------------------------------------------
-  // 5. Active Nav Indicator on Scroll
+  // 5. Active Nav Indicator & Scrolled Glass Header Elevation
   // --------------------------------------------------------------------------
   function initActiveNav() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav a[href^="#"], .mobile-nav-link[href^="#"]');
+    const header = document.querySelector('header');
 
     if (!sections.length || !navLinks.length) return;
 
     window.addEventListener('scroll', () => {
-      let currentSection = '';
       const scrollY = window.pageYOffset;
 
+      if (header) {
+        header.classList.toggle('scrolled', scrollY > 40);
+      }
+
+      let currentSection = '';
       sections.forEach((section) => {
         const sectionTop = section.offsetTop - 140;
         const sectionHeight = section.offsetHeight;
@@ -141,6 +204,35 @@
           link.classList.add('active');
         }
       });
+    }, { passive: true });
+  }
+
+  // --------------------------------------------------------------------------
+  // 6. Cinematic Scroll Reveal (IntersectionObserver)
+  // --------------------------------------------------------------------------
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const targets = document.querySelectorAll(
+      '.section-header, .timeline-item, .skill-card, .about-portrait-card, .about-content-column .info-card, .two-column-grid .info-card, .contact-card'
+    );
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    targets.forEach((el) => {
+      el.classList.add('reveal-item');
+      observer.observe(el);
     });
   }
 
@@ -959,16 +1051,17 @@
               <i data-lucide="bot" style="width:16px;height:16px;"></i>
             </div>
             <div class="ai-msg-bubble">
-              Conversation reset! 👋 What would you like to explore about Dipta's <strong>14 projects</strong>, mobile development, or background?
+              Conversation reset! 👋 What would you like to explore about Dipta's <strong>18 production projects</strong>, AI agents & RAG pipelines, or Flutter mobile architecture?
             </div>
           </div>
           <div class="ai-suggestions-wrap" id="ai-suggestions">
             <span class="ai-suggestions-title">Quick Questions:</span>
             <div class="ai-suggestions-list">
+              <button type="button" class="ai-prompt-chip" data-query="Tell me about your AI Agent and RAG projects">🤖 AI Agents & RAG (10)</button>
               <button type="button" class="ai-prompt-chip" data-query="Tell me about your mobile apps">📱 Mobile Apps (4)</button>
               <button type="button" class="ai-prompt-chip" data-query="What is your tech stack?">⚡ Tech Stack</button>
-              <button type="button" class="ai-prompt-chip" data-query="Tell me about Field Force App">🗺️ Field Force App</button>
-              <button type="button" class="ai-prompt-chip" data-query="What are your AI/ML projects?">🧠 AI & Computer Vision</button>
+              <button type="button" class="ai-prompt-chip" data-query="Tell me about Medical AI Agent">🏥 Medical AI Agent</button>
+              <button type="button" class="ai-prompt-chip" data-query="Tell me about Bangla RAG Chatbot">📖 Bangla RAG Chatbot</button>
               <button type="button" class="ai-prompt-chip" data-query="How can I contact or hire Dipta?">📬 Contact & Hire</button>
             </div>
           </div>
@@ -982,47 +1075,92 @@
     function getBotResponse(userQuery) {
       const q = userQuery.toLowerCase().trim();
 
+      // Specific Project: Medical AI Multi-Tool Agent System
+      if (q.includes('medical') || q.includes('clinical') || (q.includes('multi-tool') && q.includes('medical')) || q.includes('tavily') || q.includes('fallback')) {
+        return `🏥 <strong>Medical AI Multi-Tool Agent System</strong> is an enterprise-grade clinical assistant engineered by Dipta:
+        <br>&bull; <strong>Multi-Database SQL Agents:</strong> Natural language querying across SQLite clinical datasets (Cardiology, Oncology, Metabolic health).
+        <br>&bull; <strong>Live Web Retrieval:</strong> Real-time clinical guidelines via Tavily Search API.
+        <br>&bull; <strong>Zero-Downtime Fallback:</strong> Intelligent chaining of Google Gemini & OpenAI GPT-4o-mini via LangChain <code>.with_fallbacks</code>.
+        <br>&bull; <strong>Fault-Tolerant Engine:</strong> Contextual medical degradation ensuring 0% crash rate during API quotas.
+        <br>&bull; <strong>Stack:</strong> Python 3.11+, LangChain, Gemini, GPT-4o-mini, SQLite, Tavily, Pytest.
+        <br><br>👉 Check out the repository: <a href="https://lnkd.in/gp4JS435" target="_blank">View on GitHub</a> or filter by <a href="#projects" class="ai-jump-filter" data-filter="ai">AI Projects</a>.`;
+      }
+
+      // Specific Project: Bangla Book Knowledge Base RAG Chatbot
+      if (q.includes('bangla') || q.includes('devdas') || q.includes('দেবদাস') || q.includes('rag') || q.includes('bengali') || q.includes('bge-m3') || q.includes('wikisource')) {
+        return `📖 <strong>Bangla Book Knowledge Base RAG Chatbot</strong> is an end-to-end Bengali RAG system built on "দেবদাস" (Devdas):
+        <br>&bull; <strong>Automated Pipeline:</strong> Dynamic Wikisource crawler & paragraph-preserving chunking.
+        <br>&bull; <strong>Hybrid Retrieval:</strong> Dense embeddings (bge-m3) + Bengali morphological stemmer achieving 100% retrieval hit rate.
+        <br>&bull; <strong>Grounding Safeguards:</strong> Clickable chapter citations and strict anti-hallucination refusal rules.
+        <br>&bull; <strong>Real-Time UI:</strong> Interactive Streamlit chat powered by Groq LLaMA 3.
+        <br><br>👉 View the project: <a href="https://lnkd.in/gu4qAnqR" target="_blank">View on GitHub</a> or browse the <a href="#projects" class="ai-jump-filter" data-filter="ai">AI Projects section</a>.`;
+      }
+
+      // Specific Project: Bangladesh Multi-Tool AI Agent
+      if (q.includes('bangladesh') || q.includes('hospital data') || (q.includes('multi-tool') && q.includes('bangladesh')) || q.includes('dghs')) {
+        return `🇧🇩 <strong>Bangladesh Multi-Tool AI Agent</strong> is an autonomous tool-calling system:
+        <br>&bull; <strong>Automatic Routing:</strong> Dynamically detects intent and routes queries to hospital databases, academic institutions, restaurant data, or live Tavily web search.
+        <br>&bull; <strong>LangChain + Gemini:</strong> Uses tool calling to connect structured SQLite datasets with natural conversation.
+        <br>&bull; <strong>Stack:</strong> Python, LangChain, Google Gemini, SQLite, Streamlit, Docker, Hugging Face.
+        <br><br>👉 Try the live demo: <a href="https://lnkd.in/gEhdKeQY" target="_blank">Launch Live Demo</a>!`;
+      }
+
+      // Specific Project: AI LinkedIn Post Generator
+      if (q.includes('linkedin') || q.includes('post generator') || q.includes('content generator')) {
+        return `🚀 <strong>AI LinkedIn Post Generator</strong> is a multi-lingual generative AI application:
+        <br>&bull; <strong>Multi-Lingual Generation:</strong> Supports English, Bengali, Hindi, Spanish, and French.
+        <br>&bull; <strong>Agent Validation:</strong> Validates post structure, viral hooks, hashtag suggestions, and paragraph counts.
+        <br>&bull; <strong>Export:</strong> Instant .txt downloads for publish-ready content.
+        <br>&bull; <strong>Stack:</strong> Python, Streamlit, LangChain, Google Gemini.
+        <br><br>👉 Try it live: <a href="https://lnkd.in/gF4TxQzn" target="_blank">Try Live Generator</a> | <a href="https://github.com/didipta/Linkedin-post-agent" target="_blank">GitHub Repo</a>`;
+      }
+
       // Mobile Apps
       if (q.includes('mobile') || q.includes('flutter') || q.includes('android') || q.includes('ios') || q.includes('app')) {
         if (q.includes('field force')) {
-          return `<strong>Field Force App</strong> is an enterprise mobile solution built by Dipta for remote sales teams. It features:
+          return `<strong>Field Force App</strong> is an enterprise mobile solution built by Dipta for remote sales teams:
           <br>&bull; Real-time GPS location tracking & route optimization
-          <br>&bull; Offline-first synchronization architecture
-          <br>&bull; Order logging, attendance check-in, and sales rep management
+          <br>&bull; Camera verification and attendance geofencing
+          <br>&bull; Offline-first synchronization with BLoC architecture
           <br><br>👉 Check it out under the <a href="#projects" class="ai-jump-filter" data-filter="mobile">Mobile Apps section</a>.`;
         }
         return `Dipta has engineered <strong>4 production-grade mobile applications</strong> built primarily with <strong>Flutter & Dart</strong>:
-        <br>1. <strong>Oiikko Community App:</strong> Social collaboration & member engagement platform.
-        <br>2. <strong>Field Force App:</strong> Enterprise GPS tracking & sales team route automation.
+        <br>1. <strong>Oiikko Community App:</strong> Social collaboration active on Google Play & Apple App Store.
+        <br>2. <strong>Field Force App:</strong> Enterprise GPS tracking & sales team route automation for Samsung.
         <br>3. <strong>Flutter Social Media App:</strong> Real-time messaging, feed rendering & media uploads.
-        <br>4. <strong>Ecommerce Mobile App:</strong> Product discovery, basket management & secure checkout flow.
+        <br>4. <strong>Ecommerce Mobile App:</strong> Product discovery, basket management & secure checkout.
         <br><br>👉 You can view all 4 under the <a href="#projects" class="ai-jump-filter" data-filter="mobile">Mobile Filter (#projects)</a>.`;
       }
 
       // Tech Stack / Skills
       if (q.includes('tech stack') || q.includes('skill') || q.includes('technology') || q.includes('framework') || q.includes('languages')) {
         return `Here is Dipta's core engineering stack:
-        <br>&bull; <strong>Mobile:</strong> Flutter, Dart, Riverpod/BLoC, SQLite, Firebase
-        <br>&bull; <strong>Backend:</strong> Python, Django, REST Framework, Node.js, PostgreSQL
-        <br>&bull; <strong>AI & Data:</strong> TensorFlow, PyTorch, OpenCV, Computer Vision
-        <br>&bull; <strong>DevOps & Tools:</strong> Docker, AWS, Git, CI/CD pipelines
-        <br><br>He has <strong>4+ years of professional experience</strong> architecting resilient systems.`;
+        <br>&bull; <strong>AI & RAG:</strong> LangChain, Google Gemini, OpenAI GPT-4o, Groq, bge-m3, Tavily API, CrewAI, AutoGen, YOLOv11, OpenCV
+        <br>&bull; <strong>Mobile:</strong> Flutter, Dart, BLoC, Provider, Firebase, SQLite
+        <br>&bull; <strong>Full-Stack:</strong> Next.js 14, React, Node.js, NestJS, ASP.NET Core, TypeScript
+        <br>&bull; <strong>Databases & Cloud:</strong> PostgreSQL, SQLite, MongoDB, Docker, Git, CI/CD
+        <br><br>He brings <strong>4+ years of hands-on software engineering experience</strong>.`;
       }
 
-      // AI / Machine Learning / Computer Vision
-      if (q.includes('ai') || q.includes('machine learning') || q.includes('deep learning') || q.includes('computer vision') || q.includes('taka') || q.includes('currency')) {
-        return `Dipta's AI/ML work focuses on applied computer vision and deep learning models:
-        <br>&bull; <strong>Bangladeshi Taka Detection:</strong> Deep learning model classifying banknote denominations under varied illumination and angles.
-        <br>&bull; <strong>Computer Vision Pipelines:</strong> Image preprocessing, feature extraction with OpenCV, and automated validation.
-        <br><br>👉 Filter by <a href="#projects" class="ai-jump-filter" data-filter="ai">AI / ML Projects</a> to see more.`;
+      // AI / Machine Learning / Computer Vision / Agents / RAG
+      if (q.includes('ai') || q.includes('machine learning') || q.includes('deep learning') || q.includes('computer vision') || q.includes('agent')) {
+        return `Dipta has built <strong>8 specialized AI, RAG & Autonomous Agent systems</strong>:
+        <br>&bull; <strong>Medical AI Multi-Tool Agent:</strong> Dual-LLM fallback (Gemini/OpenAI) + clinical SQL agents + Tavily search.
+        <br>&bull; <strong>Bangla Book RAG Chatbot:</strong> Hybrid retrieval (bge-m3 + Bengali stemmer) with 100% hit rate on "দেবদাস".
+        <br>&bull; <strong>Bangladesh Multi-Tool Agent:</strong> Natural language routing across hospitals, institutions & web data.
+        <br>&bull; <strong>AI LinkedIn Post Generator:</strong> Multilingual post creator with structural agent validation.
+        <br>&bull; <strong>Bangladeshi Taka Detection:</strong> Deep learning computer vision for banknote classification.
+        <br>&bull; <strong>Leo Study Tutor:</strong> Collaborative multi-agent tutoring with CrewAI & AutoGen.
+        <br>&bull; <strong>People Flow Analytics:</strong> Real-time YOLOv8 spatial tracking with ByteTrack.
+        <br><br>👉 Filter by <a href="#projects" class="ai-jump-filter" data-filter="ai">Applied AI & Vision (#projects)</a> to explore all 8!`;
       }
 
       // Experience / Bio / Softograph
       if (q.includes('experience') || q.includes('softograph') || q.includes('company') || q.includes('work') || q.includes('background') || q.includes('who is')) {
         return `Dipta Saha is a <strong>Software Engineer with 4+ years of experience</strong> based in Dhaka, Bangladesh.
         <br>&bull; Currently building high-scale distributed systems and mobile solutions at <strong>Softograph Ltd</strong>.
-        <br>&bull; Specialized in cross-platform mobile apps (Flutter), robust Python backends, and AI pipelines.
-        <br>&bull; Delivered over 14 production systems with clean code, testing, and modern DevOps.`;
+        <br>&bull; Specialized in Next.js web platforms, cross-platform Flutter mobile apps, and LLM/RAG agent systems.
+        <br>&bull; Delivered over 16 production systems with clean code, testing, and modern DevOps.`;
       }
 
       // Contact / Hire / Email
@@ -1032,28 +1170,28 @@
         <br>&bull; <strong>Location:</strong> Dhaka, Bangladesh
         <br>&bull; <strong>GitHub:</strong> <a href="https://github.com/didipta" target="_blank">github.com/didipta</a>
         <br>&bull; <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/dipta-saha-11a4b8194/" target="_blank">linkedin.com/in/dipta-saha-11a4b8194</a>
-        <br><br>Ready to build something impactful together! You can also use the contact form right below.`;
+        <br><br>Ready to collaborate! You can also send a direct message through the contact form below.`;
       }
 
       // Projects general
       if (q.includes('project') || q.includes('portfolio') || q.includes('works') || q.includes('built')) {
-        return `Dipta's portfolio features <strong>14 comprehensive projects</strong> across:
-        <br>&bull; <strong>Mobile (4):</strong> Field Force App, Oiikko Community, Flutter Social, Ecommerce
-        <br>&bull; <strong>Web (7):</strong> Hospital Management, ERPs, SaaS dashboards, and web applications
-        <br>&bull; <strong>AI / ML (3):</strong> Deep learning banknote detection and automated recognition
+        return `Dipta's portfolio features <strong>18 comprehensive production deployments</strong> across:
+        <br>&bull; <strong>Applied AI & RAG Agents (10):</strong> Medical AI agent, Bangla RAG chatbot, Bangladesh multi-tool agent, LinkedIn generator, banknote vision, etc.
+        <br>&bull; <strong>Mobile Apps (4):</strong> Oiikko Community (App Store & Play Store), Field Force App, Flutter Social, Ecommerce.
+        <br>&bull; <strong>Web & ERP (4):</strong> Multi-vendor marketplace, Shopping Corner, Event Management, Social platform.
         <br><br>Explore the interactive filters in the <a href="#projects">Projects Showcase</a>!`;
       }
 
       // Greeting
       if (q.includes('hi') || q.includes('hello') || q.includes('hey') || q.includes('greetings')) {
-        return `Hello there! 👋 Glad to have you here. I can answer questions about Dipta's skills, 4 mobile apps, AI research, or how to get in touch. Try one of the buttons below!`;
+        return `Hello there! 👋 Glad to have you here. I can answer questions about Dipta's skills, 18 production projects (including his latest Medical AI and Bangla RAG systems), or how to get in touch. Try one of the buttons below!`;
       }
 
       // Fallback
       return `I can definitely help with that! You can ask me about:
-      <br>&bull; Dipta's <strong>4 mobile applications</strong> (including Field Force App)
-      <br>&bull; <strong>Tech stack</strong> (Flutter, Python, Django, PostgreSQL)
-      <br>&bull; <strong>AI & Computer Vision</strong> projects
+      <br>&bull; Dipta's <strong>AI Agent & RAG projects</strong> (Medical AI Agent, Bangla RAG Chatbot, Bangladesh Multi-Tool)
+      <br>&bull; <strong>4 mobile applications</strong> (including Oiikko on Play/App Store & Field Force App)
+      <br>&bull; <strong>Tech stack</strong> (LangChain, Gemini, Flutter, Python, Next.js)
       <br>&bull; How to <strong>hire or contact</strong> Dipta directly at <a href="mailto:sdipta707@gmail.com">sdipta707@gmail.com</a>.`;
     }
 
@@ -1444,6 +1582,7 @@
     initIcons();
     initProjectFilters();
     initCardTilt();
+    initScrollReveal();
     initActiveNav();
     initMobileNav();
     initHero3D();
