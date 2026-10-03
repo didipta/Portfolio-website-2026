@@ -132,6 +132,45 @@
     });
   }
 
+  // Dynamically load projects from projects.json and render them
+  function loadProjectsFromJSON() {
+    const container = document.getElementById('projects-container');
+    if (!container) return;
+    fetch('projects.json')
+      .then(res => res.json())
+      .then(data => {
+        container.innerHTML = '';
+        data.forEach(p => {
+          const article = document.createElement('article');
+          article.className = `project-card${p.featured ? ' featured' : ''}`;
+          article.setAttribute('data-category', p.category);
+          article.innerHTML = `
+            <div>
+              <div class="card-top">
+                <span class="badge-status">${p.kind}</span>
+                <span class="card-category">${p.category.charAt(0).toUpperCase() + p.category.slice(1)}</span>
+              </div>
+              <h3 class="project-title">${p.title}</h3>
+              <p class="project-desc">${p.shortDescription}</p>
+              <div class="tech-stack-row">
+                ${p.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="card-actions">
+              ${p.links.github ? `<a href="${p.links.github}" target="_blank" class="project-link-btn primary"><i data-lucide="github" style="width:14px;height:14px;"></i> View Repository</a>` : ''}
+            </div>
+          `;
+          container.appendChild(article);
+        });
+        // Reinitialize icons for any new SVGs
+        initIcons();
+        // Apply default 'all' filter to ensure proper display
+        filterProjects('all');
+        initIcons();
+      })
+      .catch(err => console.error('Failed to load projects:', err));
+  }
+
   // --------------------------------------------------------------------------
   // 4. 3D Card Tilt Physics & Interactive Spotlight Cursor
   // --------------------------------------------------------------------------
@@ -1093,7 +1132,7 @@
         <br>&bull; <strong>Hybrid Retrieval:</strong> Dense embeddings (bge-m3) + Bengali morphological stemmer achieving 100% retrieval hit rate.
         <br>&bull; <strong>Grounding Safeguards:</strong> Clickable chapter citations and strict anti-hallucination refusal rules.
         <br>&bull; <strong>Real-Time UI:</strong> Interactive Streamlit chat powered by Groq LLaMA 3.
-        <br><br>👉 View the project: <a href="https://lnkd.in/gu4qAnqR" target="_blank">View on GitHub</a> or browse the <a href="#projects" class="ai-jump-filter" data-filter="ai">AI Projects section</a>.`;
+        <br><br>👉 View the project: <a href="https://github.com/didipta/bangla-book-rag-chatbot" target="_blank">View on GitHub</a> or browse the <a href="#projects" class="ai-jump-filter" data-filter="ai">AI Projects section</a>.`;
       }
 
       // Specific Project: Bangladesh Multi-Tool AI Agent
@@ -1102,7 +1141,7 @@
         <br>&bull; <strong>Automatic Routing:</strong> Dynamically detects intent and routes queries to hospital databases, academic institutions, restaurant data, or live Tavily web search.
         <br>&bull; <strong>LangChain + Gemini:</strong> Uses tool calling to connect structured SQLite datasets with natural conversation.
         <br>&bull; <strong>Stack:</strong> Python, LangChain, Google Gemini, SQLite, Streamlit, Docker, Hugging Face.
-        <br><br>👉 Try the live demo: <a href="https://lnkd.in/gEhdKeQY" target="_blank">Launch Live Demo</a>!`;
+        <br><br>👉 Try the live demo: <a href="https://lnkd.in/gEhdKeQY" target="_blank">Launch Live Demo</a> | <a href="https://github.com/didipta/bangladesh-multitool-agent" target="_blank">GitHub Repo</a>`;
       }
 
       // Specific Project: AI LinkedIn Post Generator
@@ -1511,6 +1550,7 @@
     }
 
     const mainBot = buildBotInstance(triggerCanvas, false);
+    // Existing initialization continues
     if (mainBot) instances.push(mainBot);
 
     const headerBot = buildBotInstance(headerCanvas, true);
@@ -1579,6 +1619,8 @@
   // Bootstrap Application
   // --------------------------------------------------------------------------
   window.addEventListener('DOMContentLoaded', () => {
+    // Load and render projects from JSON
+    loadProjectsFromJSON();
     initIcons();
     initProjectFilters();
     initCardTilt();
