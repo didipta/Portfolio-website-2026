@@ -51,6 +51,33 @@
   ],
   "projects": [
     {
+      "id": "medbangla-ai",
+      "title": "MedBangla AI",
+      "category": "ai",
+      "kind": "Python · Full-Stack AI",
+      "featured": true,
+      "status": "Completed",
+      "shortDescription": "Bilingual AI prescription digitization, medication safety triage, and clinical decision support system.",
+      "description": "End-to-end medical AI platform featuring hybrid CPU-first bilingual OCR (RapidOCR + Gemini Flash), fuzzy entity matching across 17,500+ DGDA medicines, pairwise drug-drug interaction safety checks, and Bengali clinical RAG with Next.js web and Flutter mobile apps.",
+      "technologies": [
+        "FastAPI",
+        "Python",
+        "RapidOCR",
+        "Gemini API",
+        "PostgreSQL",
+        "Next.js",
+        "React",
+        "Flutter",
+        "Docker"
+      ],
+      "links": {
+        "googlePlay": null,
+        "appStore": null,
+        "github": "https://github.com/didipta/medbangla-ai",
+        "live": "https://medbangla-ai-liart.vercel.app"
+      }
+    },
+    {
       "id": "oiikko-community-app",
       "title": "Oiikko Community App",
       "category": "mobile",

@@ -144,29 +144,62 @@
           const article = document.createElement('article');
           article.className = `project-card${p.featured ? ' featured' : ''}`;
           article.setAttribute('data-category', p.category);
-          article.innerHTML = `
+
+          const cardTop = p.featured
+            ? `<div class="card-top">
+                <div class="card-badges">
+                  <span class="badge-featured"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Flagship ${p.category === 'mobile' ? 'Mobile' : 'AI'}</span>
+                  <span class="badge-status">● ${p.status || p.kind}</span>
+                </div>
+                <span class="card-category">${p.kind}</span>
+              </div>`
+            : `<div class="card-top">
+                <span class="badge-status">${p.status ? '● ' + p.status : p.kind}</span>
+                <span class="card-category">${p.kind || (p.category.charAt(0).toUpperCase() + p.category.slice(1))}</span>
+              </div>`;
+
+          const actions = `
+            <div class="card-actions">
+              ${p.links && p.links.live ? `<a href="${p.links.live}" target="_blank" class="project-link-btn primary" title="Launch Live Demo"><i data-lucide="external-link" style="width:14px;height:14px;"></i> Live Demo</a>` : ''}
+              ${p.links && p.links.googlePlay ? `<a href="${p.links.googlePlay}" target="_blank" class="project-link-btn primary" title="Google Play"><i data-lucide="play" style="width:14px;height:14px;"></i> Google Play</a>` : ''}
+              ${p.links && p.links.appStore ? `<a href="${p.links.appStore}" target="_blank" class="project-link-btn" title="App Store"><i data-lucide="apple" style="width:14px;height:14px;"></i> App Store</a>` : ''}
+              ${p.links && p.links.github ? `<a href="${p.links.github}" target="_blank" class="project-link-btn ${!(p.links && (p.links.live || p.links.googlePlay)) ? 'primary' : ''}" title="View Repository on GitHub"><i data-lucide="github" style="width:14px;height:14px;"></i> View Repository</a>` : ''}
+            </div>`;
+
+          const leftContent = `
             <div>
-              <div class="card-top">
-                <span class="badge-status">${p.kind}</span>
-                <span class="card-category">${p.category.charAt(0).toUpperCase() + p.category.slice(1)}</span>
-              </div>
+              ${cardTop}
               <h3 class="project-title">${p.title}</h3>
-              <p class="project-desc">${p.shortDescription}</p>
+              <p class="project-desc">${p.description || p.shortDescription}</p>
               <div class="tech-stack-row">
                 ${p.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('')}
               </div>
-            </div>
-            <div class="card-actions">
-              ${p.links.github ? `<a href="${p.links.github}" target="_blank" class="project-link-btn primary"><i data-lucide="github" style="width:14px;height:14px;"></i> View Repository</a>` : ''}
-            </div>
-          `;
+              ${actions}
+            </div>`;
+
+          const rightFeaturedColumn = p.featured
+            ? `<div style="background:rgba(0,0,0,0.3);border-radius:var(--radius-md);border:1px solid var(--border-subtle);padding:24px;display:flex;flex-direction:column;justify-content:center;">
+                <div style="font-family:var(--font-mono);font-size:13px;color:var(--cyan);margin-bottom:12px;">
+                  // Architecture Highlights
+                </div>
+                <ul style="list-style:none;font-size:14px;color:var(--text-muted);line-height:1.8;">
+                  <li>✓ ${p.shortDescription}</li>
+                  <li>✓ Production deployment &amp; scalable architecture</li>
+                  <li>✓ Clean microservice/component design patterns</li>
+                  <li>✓ Modern security &amp; performance optimizations</li>
+                </ul>
+              </div>`
+            : '';
+
+          article.innerHTML = leftContent + rightFeaturedColumn;
           container.appendChild(article);
         });
         // Reinitialize icons for any new SVGs
         initIcons();
+        // Reinitialize tilt physics
+        initCardTilt();
         // Apply default 'all' filter to ensure proper display
         filterProjects('all');
-        initIcons();
       })
       .catch(err => console.error('Failed to load projects:', err));
   }
@@ -1099,6 +1132,7 @@
               <button type="button" class="ai-prompt-chip" data-query="Tell me about your AI Agent and RAG projects">🤖 AI Agents & RAG (10)</button>
               <button type="button" class="ai-prompt-chip" data-query="Tell me about your mobile apps">📱 Mobile Apps (4)</button>
               <button type="button" class="ai-prompt-chip" data-query="What is your tech stack?">⚡ Tech Stack</button>
+              <button type="button" class="ai-prompt-chip" data-query="Tell me about MedBangla AI">🩺 MedBangla AI (Latest)</button>
               <button type="button" class="ai-prompt-chip" data-query="Tell me about Medical AI Agent">🏥 Medical AI Agent</button>
               <button type="button" class="ai-prompt-chip" data-query="Tell me about Bangla RAG Chatbot">📖 Bangla RAG Chatbot</button>
               <button type="button" class="ai-prompt-chip" data-query="How can I contact or hire Dipta?">📬 Contact & Hire</button>
@@ -1113,6 +1147,16 @@
     // Knowledge Base Matcher
     function getBotResponse(userQuery) {
       const q = userQuery.toLowerCase().trim();
+
+      // Specific Project: MedBangla AI (Latest Flagship Project)
+      if (q.includes('medbangla') || q.includes('prescription') || q.includes('dgda') || (q.includes('bilingual') && q.includes('ocr'))) {
+        return `🩺 <strong>MedBangla AI</strong> is Dipta's latest flagship medical AI platform:
+        <br>&bull; <strong>Bilingual Prescription Digitization:</strong> Hybrid CPU-first OCR using RapidOCR + Google Gemini Flash.
+        <br>&bull; <strong>Medication Safety Triage:</strong> Fuzzy entity matching across 17,500+ DGDA registered medicines with pairwise drug-drug interaction safety checks.
+        <br>&bull; <strong>Clinical Decision Support:</strong> Bengali clinical RAG with Next.js web application and Flutter mobile apps.
+        <br>&bull; <strong>Stack:</strong> FastAPI, Python, RapidOCR, Gemini API, PostgreSQL, Next.js, React, Flutter, Docker.
+        <br><br>👉 Try the live demo: <a href="https://medbangla-ai-liart.vercel.app" target="_blank">Launch Live Demo</a> | <a href="https://github.com/didipta/medbangla-ai" target="_blank">GitHub Repo</a>`;
+      }
 
       // Specific Project: Medical AI Multi-Tool Agent System
       if (q.includes('medical') || q.includes('clinical') || (q.includes('multi-tool') && q.includes('medical')) || q.includes('tavily') || q.includes('fallback')) {
@@ -1183,7 +1227,8 @@
 
       // AI / Machine Learning / Computer Vision / Agents / RAG
       if (q.includes('ai') || q.includes('machine learning') || q.includes('deep learning') || q.includes('computer vision') || q.includes('agent')) {
-        return `Dipta has built <strong>8 specialized AI, RAG & Autonomous Agent systems</strong>:
+        return `Dipta has built <strong>9 specialized AI, RAG & Autonomous Agent systems</strong>:
+        <br>&bull; <strong>MedBangla AI (Latest):</strong> Bilingual prescription digitization, 17.5k+ medicine safety triage & clinical RAG.
         <br>&bull; <strong>Medical AI Multi-Tool Agent:</strong> Dual-LLM fallback (Gemini/OpenAI) + clinical SQL agents + Tavily search.
         <br>&bull; <strong>Bangla Book RAG Chatbot:</strong> Hybrid retrieval (bge-m3 + Bengali stemmer) with 100% hit rate on "দেবদাস".
         <br>&bull; <strong>Bangladesh Multi-Tool Agent:</strong> Natural language routing across hospitals, institutions & web data.
@@ -1191,7 +1236,7 @@
         <br>&bull; <strong>Bangladeshi Taka Detection:</strong> Deep learning computer vision for banknote classification.
         <br>&bull; <strong>Leo Study Tutor:</strong> Collaborative multi-agent tutoring with CrewAI & AutoGen.
         <br>&bull; <strong>People Flow Analytics:</strong> Real-time YOLOv8 spatial tracking with ByteTrack.
-        <br><br>👉 Filter by <a href="#projects" class="ai-jump-filter" data-filter="ai">Applied AI & Vision (#projects)</a> to explore all 8!`;
+        <br><br>👉 Filter by <a href="#projects" class="ai-jump-filter" data-filter="ai">Applied AI & Vision (#projects)</a> to explore all 9!`;
       }
 
       // Experience / Bio / Softograph

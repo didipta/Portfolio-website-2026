@@ -348,7 +348,7 @@
 
           <div class="hero-buttons">
             <a href="#projects" class="btn-primary-large">
-              <span>Explore 16+ Projects</span>
+              <span>Explore 17+ Projects</span>
               <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
             </a>
             <a href="https://github.com/didipta" target="_blank" class="btn-secondary" aria-label="GitHub Profile">
@@ -371,7 +371,7 @@
               <div class="metric-label">Years Experience</div>
             </div>
             <div class="metric-card">
-              <div class="metric-number">16+</div>
+              <div class="metric-number">17+</div>
               <div class="metric-label">Production Projects</div>
             </div>
             <div class="metric-card">
@@ -656,9 +656,9 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Selected Work & Systems</span>
-        <h2 class="section-title">16 Production Deployments Engineered for Scale</h2>
+        <h2 class="section-title">17 Production Deployments Engineered for Scale</h2>
         <p class="section-subtitle">Explore real-world software across high-throughput web architectures, 4 published
-          mobile applications, and 8 applied AI, RAG &amp; autonomous agent systems.</p>
+          mobile applications, and 9 applied AI, RAG &amp; autonomous agent systems.</p>
       </div>
 
       <!-- Filter Tabs -->
@@ -666,7 +666,7 @@
         <button class="tab-btn active" data-filter="all">
           <i data-lucide="layers" style="width:15px;height:15px;"></i>
           <span>All Projects</span>
-          <span class="tab-count">16</span>
+          <span class="tab-count">17</span>
         </button>
         <button class="tab-btn" data-filter="web">
           <i data-lucide="globe" style="width:15px;height:15px;"></i>
@@ -681,14 +681,64 @@
         <button class="tab-btn" data-filter="ai">
           <i data-lucide="cpu" style="width:15px;height:15px;"></i>
           <span>Applied AI &amp; Vision</span>
-          <span class="tab-count">8</span>
+          <span class="tab-count">9</span>
         </button>
       </div>
 
       <!-- Projects Grid -->
       <div class="projects-grid" id="projects-container">
 
-        <!-- Project 1: Oiikko (Featured Mobile) -->
+        <!-- Project 1: MedBangla AI (Featured AI & Full-Stack · Latest) -->
+        <article class="project-card featured" data-category="ai">
+          <div>
+            <div class="card-top">
+              <div class="card-badges">
+                <span class="badge-featured"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Flagship AI · Latest</span>
+                <span class="badge-status">● Completed</span>
+              </div>
+              <span class="card-category">Python · Full-Stack AI</span>
+            </div>
+            <h3 class="project-title">MedBangla AI</h3>
+            <p class="project-desc">
+              End-to-end medical AI platform featuring hybrid CPU-first bilingual OCR (RapidOCR + Gemini Flash), fuzzy entity matching across 17,500+ DGDA medicines, pairwise drug-drug interaction safety checks, and Bengali clinical RAG with Next.js web and Flutter mobile apps.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">RapidOCR</span>
+              <span class="tech-tag">Gemini API</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+            <div class="card-actions">
+              <a href="https://medbangla-ai-liart.vercel.app" target="_blank" class="project-link-btn primary"
+                title="Launch Live Demo">
+                <i data-lucide="external-link" style="width:14px;height:14px;"></i> Live Demo
+              </a>
+              <a href="https://github.com/didipta/medbangla-ai" target="_blank" class="project-link-btn"
+                title="View Repository on GitHub">
+                <i data-lucide="github" style="width:14px;height:14px;"></i> View Repository
+              </a>
+            </div>
+          </div>
+          <div
+            style="background:rgba(0,0,0,0.3);border-radius:var(--radius-md);border:1px solid var(--border-subtle);padding:24px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:var(--font-mono);font-size:13px;color:var(--cyan);margin-bottom:12px;">
+              // Architecture Highlights
+            </div>
+            <ul style="list-style:none;font-size:14px;color:var(--text-muted);line-height:1.8;">
+              <li>✓ Hybrid CPU-first bilingual OCR (RapidOCR + Gemini Flash)</li>
+              <li>✓ Fuzzy entity matching across 17,500+ DGDA medicines</li>
+              <li>✓ Pairwise drug-drug interaction safety triage checks</li>
+              <li>✓ Bengali clinical RAG with Next.js web &amp; Flutter mobile apps</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Project 2: Oiikko (Featured Mobile) -->
         <article class="project-card featured" data-category="mobile">
           <div>
             <div class="card-top">
@@ -1571,6 +1621,7 @@
             <button type="button" class="ai-prompt-chip" data-query="Tell me about your mobile apps">📱 Mobile Apps
               (4)</button>
             <button type="button" class="ai-prompt-chip" data-query="What is your tech stack?">⚡ Tech Stack</button>
+            <button type="button" class="ai-prompt-chip" data-query="Tell me about MedBangla AI">🩺 MedBangla AI (Latest)</button>
             <button type="button" class="ai-prompt-chip" data-query="Tell me about Medical AI Agent">🏥 Medical AI
               Agent</button>
             <button type="button" class="ai-prompt-chip" data-query="Tell me about Bangla RAG Chatbot">📖 Bangla RAG
