@@ -371,6 +371,12 @@
     activeTechPillar = mode;
     const config = pillarConfigs[mode];
 
+    // Update active pillar data attribute on hero card
+    const heroCard = document.getElementById('hero-tilt-card');
+    if (heroCard) {
+      heroCard.setAttribute('data-active-pillar', mode);
+    }
+
     // 1. Update Buttons & Badges Active States
     document.querySelectorAll('.tech-mode-tab').forEach((tab) => {
       tab.classList.toggle('active', tab.getAttribute('data-mode') === mode);
@@ -1065,6 +1071,132 @@
   }
 
   // --------------------------------------------------------------------------
+  // Curriculum Vitae (CV) Interactive Viewer & Download Controller
+  // --------------------------------------------------------------------------
+  function initCVViewer() {
+    const modal = document.getElementById('cv-modal');
+    const iframe = document.getElementById('cv-iframe');
+    const spinner = document.getElementById('cv-spinner');
+    const closeBtn = document.getElementById('cv-modal-close-btn');
+    const printBtn = document.getElementById('cv-modal-print-btn');
+    const downloadBtn = document.getElementById('cv-modal-download-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('mobile-overlay');
+
+    if (!modal || !iframe) return;
+
+    const cvPdfUrl = 'Dipta_Saha_Resume.pdf';
+
+    function openCVModal() {
+      // Lazy load PDF only when user opens viewer
+      if (!iframe.getAttribute('src')) {
+        if (spinner) spinner.classList.remove('hidden');
+        iframe.src = cvPdfUrl + '#view=FitH&toolbar=1';
+
+        iframe.onload = () => {
+          setTimeout(() => {
+            if (spinner) spinner.classList.add('hidden');
+          }, 300);
+        };
+
+        // Safety fallback timeout to hide spinner
+        setTimeout(() => {
+          if (spinner) spinner.classList.add('hidden');
+        }, 1500);
+      }
+
+      // Close mobile drawer if active
+      if (drawer && drawer.classList.contains('active')) {
+        drawer.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+      }
+
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      initIcons();
+    }
+
+    function closeCVModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Attach to navbar CV button
+    const navCvBtn = document.getElementById('cv-viewer-btn');
+    if (navCvBtn) {
+      navCvBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCVModal();
+      });
+    }
+
+    // Attach to mobile drawer CV button
+    const mobileCvBtn = document.getElementById('mobile-cv-viewer-btn');
+    if (mobileCvBtn) {
+      mobileCvBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCVModal();
+      });
+    }
+
+    // Attach to any generic trigger with class .open-cv-modal-trigger
+    document.querySelectorAll('.open-cv-modal-trigger').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCVModal();
+      });
+    });
+
+    // Close button
+    if (closeBtn) closeBtn.addEventListener('click', closeCVModal);
+
+    // Backdrop click to close (when clicking outside container)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeCVModal();
+      }
+    });
+
+    // Escape key listener
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeCVModal();
+      }
+    });
+
+    // Proper Download notification
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        if (typeof showToast === 'function') {
+          showToast("Downloading Dipta Saha's CV (PDF)...");
+        }
+      });
+    }
+
+    // Print functionality
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+          } else {
+            window.open(cvPdfUrl, '_blank').print();
+          }
+        } catch (err) {
+          window.open(cvPdfUrl, '_blank');
+        }
+      });
+    }
+
+    // Expose globally for chatbot or external triggers
+    window.openCVViewer = openCVModal;
+    window.closeCVViewer = closeCVModal;
+  }
+
+  // --------------------------------------------------------------------------
   // AI Chatbot Controller (Animated & Knowledge-Powered)
   // --------------------------------------------------------------------------
   function initAIChatbot() {
@@ -1257,6 +1389,22 @@
         <br><br>Ready to collaborate! You can also send a direct message through the contact form below.`;
       }
 
+      // CV / Resume
+      if (q.includes('cv') || q.includes('resume') || q.includes('curriculum vitae')) {
+        return `📄 Dipta Saha's verified Curriculum Vitae is available for preview and download:
+        <br>&bull; <strong>Role:</strong> Software Engineer (4+ YOE)
+        <br>&bull; <strong>Specialization:</strong> Full-Stack (Next.js/Node), Flutter &amp; Applied AI Pipelines
+        <br>&bull; <strong>Format:</strong> ATS-Formatted PDF (60 KB)
+        <br><br><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+          <button type="button" class="cta-btn open-cv-modal-trigger" style="display:inline-flex;padding:7px 13px;font-size:12.5px;border-radius:8px;cursor:pointer;">
+            <i data-lucide="file-text" style="width:14px;height:14px;"></i> Open CV Viewer
+          </button>
+          <a href="Dipta_Saha_Resume.pdf" download="Dipta_Saha_Resume.pdf" class="project-link-btn primary" style="display:inline-flex;padding:7px 13px;font-size:12.5px;border-radius:8px;text-decoration:none;">
+            <i data-lucide="download" style="width:14px;height:14px;"></i> Download PDF
+          </a>
+        </div>`;
+      }
+
       // Projects general
       if (q.includes('project') || q.includes('portfolio') || q.includes('works') || q.includes('built')) {
         return `Dipta's portfolio features <strong>18 comprehensive production deployments</strong> across:
@@ -1311,6 +1459,15 @@
           }
           if (window.innerWidth <= 480) {
             toggleChat(false);
+          }
+        });
+      });
+
+      // Handle interactive CV modal triggers inside chat
+      msgDiv.querySelectorAll('.open-cv-modal-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (typeof window.openCVViewer === 'function') {
+            window.openCVViewer();
           }
         });
       });
@@ -1672,6 +1829,7 @@
     initScrollReveal();
     initActiveNav();
     initMobileNav();
+    initCVViewer();
     initHero3D();
     initBackground3D();
     init3DModeToggle();
